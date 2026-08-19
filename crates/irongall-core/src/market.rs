@@ -57,6 +57,21 @@ pub struct SchemeEntry {
     pub variant: Option<String>,
 }
 
+impl SchemeEntry {
+    pub fn is_dark(&self) -> bool {
+        match self.variant.as_deref().map(|s| s.to_ascii_lowercase()) {
+            Some(v) if v == "light" => false,
+            Some(v) if v == "dark" => true,
+            _ => self
+                .preview
+                .first()
+                .and_then(|h| crate::color::Rgb::parse(h).ok())
+                .map(|c| c.is_dark())
+                .unwrap_or(true),
+        }
+    }
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct FontEntry {
     pub family: String,

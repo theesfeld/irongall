@@ -175,6 +175,14 @@ struct SchemeFile {
 }
 
 impl Scheme {
+    pub fn is_dark(&self) -> bool {
+        match self.variant.as_deref().map(|s| s.to_ascii_lowercase()) {
+            Some(v) if v == "light" => false,
+            Some(v) if v == "dark" => true,
+            _ => self.palette.prefer_dark(),
+        }
+    }
+
     pub fn parse(slug: &str, yaml: &str, source: SchemeSource) -> Result<Self> {
         let file: SchemeFile =
             serde_yaml::from_str(yaml).map_err(|e| Error::parse(format!("scheme {slug}"), e))?;

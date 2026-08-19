@@ -1,6 +1,6 @@
 //! Keyboard-only TUI for irongall.
 
-use std::cell::Cell;
+use std::cell::{Cell, RefCell};
 use std::collections::HashSet;
 use std::io::{self, stdout};
 
@@ -73,6 +73,55 @@ enum MarketTab {
     Fonts,
 }
 
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Shade {
+    All,
+    Dark,
+    Light,
+}
+
+impl Shade {
+    fn next(self) -> Self {
+        match self {
+            Self::All => Self::Dark,
+            Self::Dark => Self::Light,
+            Self::Light => Self::All,
+        }
+    }
+
+    fn label(self) -> &'static str {
+        match self {
+            Self::All => "all",
+            Self::Dark => "dark",
+            Self::Light => "light",
+        }
+    }
+
+    fn matches(self, dark: bool) -> bool {
+        match self {
+            Self::All => true,
+            Self::Dark => dark,
+            Self::Light => !dark,
+        }
+    }
+}
+
+#[derive(Clone, Copy)]
+enum Hit {
+    HeaderDark,
+    HeaderLight,
+    Item(usize),
+}
+
+impl Hit {
+    fn item(self) -> Option<usize> {
+        match self {
+            Self::Item(i) => Some(i),
+            _ => None,
+        }
+    }
+}
+
 enum Modal {
     None,
     Help,
@@ -107,11 +156,13 @@ struct App {
     status_msg: String,
     last_report: String,
     installed_fonts: HashSet<String>,
-    theme_hits: Vec<usize>,
+    theme_hits: Vec<Hit>,
     font_hits: Vec<usize>,
     app_hits: Vec<usize>,
-    market_hits: Vec<usize>,
+    market_hits: Vec<Hit>,
+    shade: Shade,
     list_h: Cell<u16>,
+    font_preview: RefCell<Option<(String, u16, u16, String)>>,
     quit: bool,
 }
 
@@ -174,10 +225,19 @@ pub fn run() -> Result<()> {
         font_hits: Vec::new(),
         app_hits: Vec::new(),
         market_hits: Vec::new(),
+        shade: Shade::All,
         list_h: Cell::new(12),
+        font_preview: RefCell::new(None),
         quit: false,
     };
     rebuild_hits(&mut app);
+    if let Some(pos) = app
+        .theme_hits
+        .iter()
+        .position(|h| h.item() == Some(theme_sel))
+    {
+        app.theme_sel = pos;
+    }
 
     enable_raw_mode().map_err(|e| Error::user(format!("terminal: {e}")))?;
     let mut stdout = stdout();
@@ -348,6 +408,11 @@ fn handle(app: &mut App, key: KeyEvent) -> Result<()> {
         KeyCode::Char('/') => {
             app.filtering = true;
             app.modal = Modal::Filter;
+        }
+        KeyCode::Char('v') => {
+            app.shade = app.shade.next();
+            rebuild_hits(app);
+            app.status_msg = format!("themes · {}", app.shade.label());
         }
         KeyCode::Char('A') => request_apply(app),
         KeyCode::Char('R') => {
@@ -521,7 +586,8 @@ fn set_theme(app: &mut App, apply_now: bool) -> Result<()> {
     let Some(s) = app
         .theme_hits
         .get(app.theme_sel)
-        .and_then(|&i| app.schemes.get(i))
+        .and_then(|h| h.item())
+        .and_then(|i| app.schemes.get(i))
         .cloned()
     else {
         return Ok(());
@@ -678,6 +744,39 @@ fn list_len(app: &App) -> usize {
     }
 }
 
+fn skip_headers(app: &mut App, dir: i32) {
+    let hits: &[Hit] = match app.pane {
+        Pane::Themes => &app.theme_hits,
+        Pane::Market if matches!(app.market_tab, MarketTab::Schemes) => &app.market_hits,
+        _ => return,
+    };
+    let n = hits.len();
+    if n == 0 {
+        return;
+    }
+    let sel = match app.pane {
+        Pane::Themes => &mut app.theme_sel,
+        Pane::Market => &mut app.market_sel,
+        _ => return,
+    };
+    let mut i = *sel;
+    let step = if dir >= 0 { 1isize } else { -1isize };
+    for _ in 0..n {
+        if hits[i].item().is_some() {
+            *sel = i;
+            return;
+        }
+        let next = i as isize + step;
+        if next < 0 || next >= n as isize {
+            break;
+        }
+        i = next as usize;
+    }
+    if let Some(pos) = hits.iter().position(|h| h.item().is_some()) {
+        *sel = pos;
+    }
+}
+
 fn move_sel_to(app: &mut App, idx: usize) {
     let n = list_len(app);
     if n == 0 {
@@ -691,6 +790,7 @@ fn move_sel_to(app: &mut App, idx: usize) {
         _ => return,
     };
     *sel = idx.min(n - 1);
+    skip_headers(app, 1);
 }
 
 fn move_sel(app: &mut App, delta: i32) {
@@ -707,21 +807,50 @@ fn move_sel(app: &mut App, delta: i32) {
     };
     let next = *sel as i32 + delta;
     *sel = next.clamp(0, n as i32 - 1) as usize;
+    skip_headers(app, delta);
+}
+
+fn group_hits(dark: Vec<usize>, light: Vec<usize>, shade: Shade) -> Vec<Hit> {
+    let mut out = Vec::new();
+    match shade {
+        Shade::Dark => out.extend(dark.into_iter().map(Hit::Item)),
+        Shade::Light => out.extend(light.into_iter().map(Hit::Item)),
+        Shade::All => {
+            if !dark.is_empty() {
+                out.push(Hit::HeaderDark);
+                out.extend(dark.into_iter().map(Hit::Item));
+            }
+            if !light.is_empty() {
+                out.push(Hit::HeaderLight);
+                out.extend(light.into_iter().map(Hit::Item));
+            }
+        }
+    }
+    out
 }
 
 fn rebuild_hits(app: &mut App) {
     let q = app.filter.to_ascii_lowercase();
-    app.theme_hits = app
-        .schemes
-        .iter()
-        .enumerate()
-        .filter(|(_, s)| {
-            q.is_empty()
-                || s.slug.to_ascii_lowercase().contains(&q)
-                || s.name.to_ascii_lowercase().contains(&q)
-        })
-        .map(|(i, _)| i)
-        .collect();
+    let mut dark = Vec::new();
+    let mut light = Vec::new();
+    for (i, s) in app.schemes.iter().enumerate() {
+        if !(q.is_empty()
+            || s.slug.to_ascii_lowercase().contains(&q)
+            || s.name.to_ascii_lowercase().contains(&q))
+        {
+            continue;
+        }
+        if !app.shade.matches(s.is_dark()) {
+            continue;
+        }
+        if s.is_dark() {
+            dark.push(i);
+        } else {
+            light.push(i);
+        }
+    }
+    app.theme_hits = group_hits(dark, light, app.shade);
+
     app.font_hits = app
         .fonts
         .iter()
@@ -745,21 +874,31 @@ fn rebuild_hits(app: &mut App) {
         .map(|(i, _)| i)
         .collect();
     app.market_hits = match app.market_tab {
-        MarketTab::Schemes => app
-            .index
-            .schemes
-            .iter()
-            .enumerate()
-            .filter(|(_, s)| q.is_empty() || s.name.to_ascii_lowercase().contains(&q))
-            .map(|(i, _)| i)
-            .collect(),
+        MarketTab::Schemes => {
+            let mut d = Vec::new();
+            let mut l = Vec::new();
+            for (i, s) in app.index.schemes.iter().enumerate() {
+                if !(q.is_empty() || s.name.to_ascii_lowercase().contains(&q)) {
+                    continue;
+                }
+                if !app.shade.matches(s.is_dark()) {
+                    continue;
+                }
+                if s.is_dark() {
+                    d.push(i);
+                } else {
+                    l.push(i);
+                }
+            }
+            group_hits(d, l, app.shade)
+        }
         MarketTab::Fonts => app
             .index
             .fonts
             .iter()
             .enumerate()
             .filter(|(_, f)| q.is_empty() || f.family.to_ascii_lowercase().contains(&q))
-            .map(|(i, _)| i)
+            .map(|(i, _)| Hit::Item(i))
             .collect(),
     };
     let clamp = |sel: &mut usize, n: usize| {
@@ -773,6 +912,7 @@ fn rebuild_hits(app: &mut App) {
     clamp(&mut app.font_sel, app.font_hits.len());
     clamp(&mut app.app_sel, app.app_hits.len());
     clamp(&mut app.market_sel, app.market_hits.len());
+    skip_headers(app, 1);
 }
 
 fn current_font(app: &App) -> Option<&FontFamily> {
@@ -792,13 +932,15 @@ fn current_app_id(app: &App) -> Option<String> {
 fn current_market_scheme(app: &App) -> Option<&SchemeEntry> {
     app.market_hits
         .get(app.market_sel)
-        .and_then(|&i| app.index.schemes.get(i))
+        .and_then(|h| h.item())
+        .and_then(|i| app.index.schemes.get(i))
 }
 
 fn current_market_font(app: &App) -> Option<&FontEntry> {
     app.market_hits
         .get(app.market_sel)
-        .and_then(|&i| app.index.fonts.get(i))
+        .and_then(|h| h.item())
+        .and_then(|i| app.index.fonts.get(i))
 }
 
 fn selected_scheme(app: &App) -> Option<&Scheme> {
@@ -814,7 +956,8 @@ fn browsing_scheme(app: &App) -> Option<&Scheme> {
         Pane::Themes => app
             .theme_hits
             .get(app.theme_sel)
-            .and_then(|&i| app.schemes.get(i)),
+            .and_then(|h| h.item())
+            .and_then(|i| app.schemes.get(i)),
         _ => selected_scheme(app),
     }
 }
@@ -920,12 +1063,20 @@ fn draw_center(
     dim: Color,
 ) {
     let title = match app.pane {
-        Pane::Themes => " themes ",
+        Pane::Themes => match app.shade {
+            Shade::All => " themes · all  (v) ",
+            Shade::Dark => " themes · dark  (v) ",
+            Shade::Light => " themes · light  (v) ",
+        },
         Pane::Fonts => " fonts ",
         Pane::Size => " size ",
         Pane::Apps => " apps ",
         Pane::Market => match app.market_tab {
-            MarketTab::Schemes => " market · schemes (tinted-theming) ",
+            MarketTab::Schemes => match app.shade {
+                Shade::All => " market · schemes · all  (v) ",
+                Shade::Dark => " market · schemes · dark  (v) ",
+                Shade::Light => " market · schemes · light  (v) ",
+            },
             MarketTab::Fonts => " market · fonts (OFL / GitHub) ",
         },
         Pane::Status => " status ",
@@ -945,13 +1096,19 @@ fn draw_center(
 
     match app.pane {
         Pane::Themes => draw_windowed(f, inner, app.theme_hits.len(), app.theme_sel, acc, fg, bg, |i| {
-            let s = &app.schemes[app.theme_hits[i]];
-            let src = match s.source {
-                scheme::SchemeSource::Vendored => "·",
-                scheme::SchemeSource::Installed => "+",
-            };
-            let cur = if s.slug == app.cfg.theme.name { "*" } else { " " };
-            format!("{cur}{src} {:<20} {}", s.slug, s.name)
+            match app.theme_hits[i] {
+                Hit::HeaderDark => "── dark ──".into(),
+                Hit::HeaderLight => "── light ──".into(),
+                Hit::Item(j) => {
+                    let s = &app.schemes[j];
+                    let src = match s.source {
+                        scheme::SchemeSource::Vendored => "·",
+                        scheme::SchemeSource::Installed => "+",
+                    };
+                    let cur = if s.slug == app.cfg.theme.name { "*" } else { " " };
+                    format!("{cur}{src} {:<20} {}", s.slug, s.name)
+                }
+            }
         }),
         Pane::Fonts => draw_windowed(f, inner, app.font_hits.len(), app.font_sel, acc, fg, bg, |i| {
             let fam = &app.fonts[app.font_hits[i]];
@@ -992,13 +1149,22 @@ fn draw_center(
         Pane::Market => match app.market_tab {
             MarketTab::Schemes => {
                 draw_windowed(f, inner, app.market_hits.len(), app.market_sel, acc, fg, bg, |i| {
-                    let s = &app.index.schemes[app.market_hits[i]];
-                    format!("{}  [{}]", s.name, s.license)
+                    match app.market_hits[i] {
+                        Hit::HeaderDark => "── dark ──".into(),
+                        Hit::HeaderLight => "── light ──".into(),
+                        Hit::Item(j) => {
+                            let s = &app.index.schemes[j];
+                            format!("{}  [{}]", s.name, s.license)
+                        }
+                    }
                 });
             }
             MarketTab::Fonts => {
                 draw_windowed(f, inner, app.market_hits.len(), app.market_sel, acc, fg, bg, |i| {
-                    let fam = &app.index.fonts[app.market_hits[i]];
+                    let Some(j) = app.market_hits[i].item() else {
+                        return String::new();
+                    };
+                    let fam = &app.index.fonts[j];
                     let inst = if app.installed_fonts.contains(&fam.family) {
                         "installed"
                     } else {
@@ -1049,12 +1215,16 @@ fn draw_windowed(
     let end = (start + h).min(n);
     let items: Vec<ListItem> = (start..end)
         .map(|i| {
-            let style = if i == sel {
+            let text = fmt(i);
+            let header = text.starts_with("──");
+            let style = if header {
+                Style::default().fg(fg).bg(bg).add_modifier(Modifier::DIM)
+            } else if i == sel {
                 Style::default().bg(acc).fg(bg).add_modifier(Modifier::BOLD)
             } else {
                 Style::default().fg(fg).bg(bg)
             };
-            ListItem::new(fmt(i)).style(style)
+            ListItem::new(text).style(style)
         })
         .collect();
     f.render_widget(List::new(items), area);
@@ -1085,15 +1255,17 @@ fn draw_preview(
         }
         Pane::Fonts => {
             if let Some(fam) = current_font(app) {
+                let cols = inner.width.saturating_sub(1);
+                let rows = inner.height.saturating_sub(4).clamp(4, 12);
+                let preview = font_preview_cached(app, &fam.family, cols, rows);
                 let text = format!(
-                    "{}\n\n{}\n\n(rendered in the current terminal font — apply to switch)",
+                    "{}\n\n{preview}",
                     fam.family,
-                    font::PANGRAM
                 );
                 f.render_widget(
                     Paragraph::new(text)
                         .style(Style::default().fg(fg).bg(bg))
-                        .wrap(Wrap { trim: true }),
+                        .wrap(Wrap { trim: false }),
                     inner,
                 );
             }
@@ -1145,13 +1317,20 @@ fn draw_preview(
             }
             MarketTab::Fonts => {
                 if let Some(fam) = current_market_font(app) {
+                    let installed = app.installed_fonts.contains(&fam.family);
+                    let sample = if installed {
+                        let cols = inner.width.saturating_sub(1);
+                        let rows = 6u16;
+                        font_preview_cached(app, &fam.family, cols, rows)
+                    } else {
+                        "not installed — i to download, then preview".into()
+                    };
                     let text = format!(
-                        "{}\nlicense  {}\nsource   {}\n{}\n\n{}\n\nGlyphs render in the CURRENT terminal\nfont until you install + apply.\nLibre fonts only (OFL/SIL/UFL/MIT).\n\ni / Enter  install → ~/.local/share/fonts/irongall",
+                        "{}\nlicense  {}\nsource   {}\n{}\n\n{sample}\n\ni / Enter  install",
                         fam.family,
                         fam.license,
                         fam.source,
                         fam.notes.clone().unwrap_or_default(),
-                        font::PANGRAM
                     );
                     f.render_widget(
                         Paragraph::new(text)
@@ -1341,6 +1520,7 @@ irongall\n\
   1–6               Themes Fonts Size Apps Market Status\n\
   j/k ↑↓            move\n\
   PgUp/PgDn Home/End  page / jump\n\
+  v                 dark / light / all\n\
   /                 filter\n\
   Enter             set current (no apply)\n\
   a                 set + apply\n\
@@ -1408,6 +1588,18 @@ fn centered(area: Rect, w: u16, h: u16) -> Rect {
         width: w,
         height: h,
     }
+}
+
+fn font_preview_cached(app: &App, family: &str, cols: u16, rows: u16) -> String {
+    if let Some((f, c, r, s)) = app.font_preview.borrow().as_ref() {
+        if f == family && *c == cols && *r == rows {
+            return s.clone();
+        }
+    }
+    let rendered = font::preview_braille(family, cols as usize, rows as usize)
+        .unwrap_or_else(|e| format!("(no raster preview: {e})"));
+    *app.font_preview.borrow_mut() = Some((family.to_string(), cols, rows, rendered.clone()));
+    rendered
 }
 
 fn trunc(s: &str, n: usize) -> String {

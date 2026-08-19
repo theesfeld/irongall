@@ -306,3 +306,123 @@ fn walk_fonts(src: &Path) -> Result<Vec<PathBuf>> {
 }
 
 pub const PANGRAM: &str = "The quick brown fox jumps over the lazy dog 0123456789 => != ===";
+
+const PREVIEW_SAMPLE: &str = "Ag Hamburgefontsiv\nabcdefghijkmnopq\n0123456789 => !=";
+
+/// Font file for a family via fontconfig (`fc-match`). Portable; not distro-specific.
+pub fn file_for(family: &str) -> Result<PathBuf> {
+    let output = Command::new("fc-match")
+        .args(["-f", "%{file}", family])
+        .output()
+        .map_err(|e| Error::Command {
+            cmd: format!("fc-match {family}"),
+            status: None,
+            detail: e.to_string(),
+        })?;
+    if !output.status.success() {
+        return Err(Error::Command {
+            cmd: format!("fc-match {family}"),
+            status: Some(output.status),
+            detail: String::from_utf8_lossy(&output.stderr).into(),
+        });
+    }
+    let p = String::from_utf8_lossy(&output.stdout);
+    let p = p.trim();
+    if p.is_empty() {
+        return Err(Error::user(format!("no file for font '{family}'")));
+    }
+    Ok(PathBuf::from(p))
+}
+
+/// Rasterize a sample of `family` to Unicode braille.
+/// Works in any terminal that can show braille; no graphics protocol.
+pub fn preview_braille(family: &str, cols: usize, rows: usize) -> Result<String> {
+    let cols = cols.clamp(8, 80);
+    let rows = rows.clamp(3, 24);
+    let path = file_for(family)?;
+    let bytes = fs::read(&path).map_err(|e| Error::io(e, &path))?;
+    let font = fontdue::Font::from_bytes(bytes.as_slice(), fontdue::FontSettings::default())
+        .map_err(|e| Error::user(format!("cannot rasterize '{}': {e}", path.display())))?;
+
+    let w = cols * 2;
+    let h = rows * 4;
+    let px = ((h as f32) * 0.28).clamp(10.0, 22.0);
+    let mut buf = vec![0u8; w * h];
+
+    let mut pen_x = 1.0f32;
+    let mut baseline = px * 0.85;
+    for ch in PREVIEW_SAMPLE.chars() {
+        if ch == '\n' {
+            baseline += px * 1.2;
+            pen_x = 1.0;
+            continue;
+        }
+        if baseline as usize + 4 >= h {
+            break;
+        }
+        let (metrics, bitmap) = font.rasterize(ch, px);
+        let gx = (pen_x + metrics.xmin as f32).round() as i32;
+        let gy = (baseline + metrics.ymin as f32).round() as i32;
+        let bw = metrics.width as i32;
+        let bh = metrics.height as i32;
+        for yy in 0..bh {
+            for xx in 0..bw {
+                let dx = gx + xx;
+                let dy = gy + yy;
+                if dx < 0 || dy < 0 || dx >= w as i32 || dy >= h as i32 {
+                    continue;
+                }
+                let src = bitmap[(yy * bw + xx) as usize];
+                let i = dy as usize * w + dx as usize;
+                if src > buf[i] {
+                    buf[i] = src;
+                }
+            }
+        }
+        pen_x += metrics.advance_width;
+        if pen_x > w as f32 - 2.0 {
+            baseline += px * 1.2;
+            pen_x = 1.0;
+        }
+    }
+
+    Ok(bitmap_to_braille(&buf, w, h, cols, rows))
+}
+
+fn bitmap_to_braille(buf: &[u8], w: usize, h: usize, cols: usize, rows: usize) -> String {
+    // Braille dots: 1 4 / 2 5 / 3 6 / 7 8
+    const DOT: [[u8; 2]; 4] = [[0x01, 0x08], [0x02, 0x10], [0x04, 0x20], [0x40, 0x80]];
+    let mut out = String::with_capacity(rows * (cols + 1));
+    for row in 0..rows {
+        for col in 0..cols {
+            let mut bits: u32 = 0;
+            for dy in 0..4 {
+                for dx in 0..2 {
+                    let x = col * 2 + dx;
+                    let y = row * 4 + dy;
+                    if x < w && y < h && buf[y * w + x] > 90 {
+                        bits |= DOT[dy][dx] as u32;
+                    }
+                }
+            }
+            out.push(char::from_u32(0x2800 + bits).unwrap_or('\u{2800}'));
+        }
+        if row + 1 < rows {
+            out.push('\n');
+        }
+    }
+    out
+}
+
+#[cfg(test)]
+mod tests {
+    use super::bitmap_to_braille;
+
+    #[test]
+    fn braille_full_block() {
+        let buf = vec![255u8; 2 * 4];
+        let s = bitmap_to_braille(&buf, 2, 4, 1, 1);
+        assert_eq!(s.chars().count(), 1);
+        assert_ne!(s, "\u{2800}");
+    }
+}
