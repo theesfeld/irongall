@@ -21,6 +21,13 @@ pub const TINTED_SCHEMES_API: &str =
     "https://api.github.com/repos/tinted-theming/schemes/contents/base16?ref=spec-0.11";
 pub const TINTED_SCHEME_RAW: &str =
     "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16";
+/// One zipball so we can read each YAML's palette / author / license field.
+pub const TINTED_ZIP: &str =
+    "https://github.com/tinted-theming/schemes/archive/refs/heads/spec-0.11.zip";
+
+/// What we print when a scheme YAML has no license of its own.
+/// The collection repo is MIT; individual original palettes are not re-audited.
+pub const TINTED_COLLECTION_LICENSE: &str = "MIT (tinted-theming collection)";
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Index {
@@ -46,6 +53,8 @@ pub struct SchemeEntry {
     /// `irongall` (vendored / this repo) or `tinted-theming` (upstream Base16).
     #[serde(default)]
     pub source: Option<String>,
+    #[serde(default)]
+    pub variant: Option<String>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -75,13 +84,19 @@ pub fn is_libre(license: &str) -> bool {
 }
 
 pub fn load_index(paths: &Paths) -> Result<Index> {
-    let cached = paths.market_index();
-    let raw = if cached.is_file() {
-        fs::read_to_string(&cached).map_err(|e| Error::io(e, &cached))?
-    } else {
-        BUNDLED_INDEX.to_string()
-    };
-    serde_json::from_str(&raw).map_err(|e| Error::parse("market index", e))
+    let bundled = bundled_index()?;
+    let cached_path = paths.market_index();
+    if cached_path.is_file() {
+        if let Ok(raw) = fs::read_to_string(&cached_path) {
+            if let Ok(idx) = serde_json::from_str::<Index>(&raw) {
+                // v1 indexes stamped every scheme "MIT" with empty previews.
+                if idx.version >= bundled.version {
+                    return Ok(idx);
+                }
+            }
+        }
+    }
+    Ok(bundled)
 }
 
 pub fn bundled_index() -> Result<Index> {
@@ -108,39 +123,108 @@ pub fn update(paths: &Paths, url: Option<&str>) -> Result<Index> {
     Ok(index)
 }
 
-/// Pull the live Base16 list from tinted-theming/schemes and prepend irongall's own.
+/// Pull the live Base16 zip from tinted-theming/schemes and merge.
 fn refresh_from_upstream() -> Result<Index> {
     let mut index = bundled_index()?;
-    let body = http_get(TINTED_SCHEMES_API)?;
-    let files: serde_json::Value =
-        serde_json::from_str(&body).map_err(|e| Error::parse("tinted-theming listing", e))?;
-    let Some(arr) = files.as_array() else {
-        return Err(Error::Network(
-            "tinted-theming listing was not a JSON array".into(),
-        ));
-    };
-    let mut have: std::collections::BTreeSet<String> =
-        index.schemes.iter().map(|s| s.name.to_ascii_lowercase()).collect();
-    for f in arr {
-        let name = f.get("name").and_then(|n| n.as_str()).unwrap_or("");
-        if !name.ends_with(".yaml") {
-            continue;
+    let bytes = http_get_bytes(TINTED_ZIP)?;
+    let tinted = parse_tinted_zip(&bytes)?;
+    index
+        .schemes
+        .retain(|s| s.source.as_deref() == Some("irongall"));
+    let mut have: std::collections::BTreeSet<String> = index
+        .schemes
+        .iter()
+        .map(|s| s.name.to_ascii_lowercase())
+        .collect();
+    for s in tinted {
+        if have.insert(s.name.to_ascii_lowercase()) {
+            index.schemes.push(s);
         }
-        let slug = name.trim_end_matches(".yaml");
-        if !have.insert(slug.to_ascii_lowercase()) {
-            continue;
-        }
-        index.schemes.push(SchemeEntry {
-            name: slug.to_string(),
-            url: format!("{TINTED_SCHEME_RAW}/{name}"),
-            license: "MIT".into(),
-            system: "base16".into(),
-            preview: Vec::new(),
-            author: None,
-            source: Some("tinted-theming".into()),
-        });
     }
     Ok(index)
+}
+
+/// Read palette + author + optional YAML license from a Tinted Theming zipball.
+pub fn parse_tinted_zip(bytes: &[u8]) -> Result<Vec<SchemeEntry>> {
+    let reader = Cursor::new(bytes);
+    let mut zip = zip::ZipArchive::new(reader)
+        .map_err(|e| Error::user(format!("tinted-theming zip: {e}")))?;
+    let mut out = Vec::new();
+    for i in 0..zip.len() {
+        let mut file = zip
+            .by_index(i)
+            .map_err(|e| Error::user(format!("tinted-theming zip: {e}")))?;
+        let name = file.name().to_string();
+        if !name.contains("/base16/") || !name.ends_with(".yaml") {
+            continue;
+        }
+        let slug = std::path::Path::new(&name)
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or("")
+            .to_string();
+        if slug.is_empty() {
+            continue;
+        }
+        let mut yaml = String::new();
+        file.read_to_string(&mut yaml)
+            .map_err(|e| Error::user(format!("tinted-theming zip read: {e}")))?;
+        if let Ok(entry) = scheme_entry_from_yaml(&slug, &yaml) {
+            out.push(entry);
+        }
+    }
+    out.sort_by(|a, b| a.name.cmp(&b.name));
+    Ok(out)
+}
+
+fn scheme_entry_from_yaml(slug: &str, yaml: &str) -> Result<SchemeEntry> {
+    #[derive(Deserialize)]
+    struct Y {
+        #[serde(default)]
+        system: Option<String>,
+        #[serde(default)]
+        author: Option<String>,
+        #[serde(default)]
+        variant: Option<String>,
+        #[serde(default)]
+        license: Option<String>,
+        #[serde(default)]
+        palette: std::collections::BTreeMap<String, String>,
+    }
+    let y: Y = serde_yaml::from_str(yaml).map_err(|e| Error::parse(format!("scheme {slug}"), e))?;
+    let mut preview = Vec::new();
+    for key in [
+        "base00", "base01", "base02", "base03", "base04", "base05", "base06", "base07",
+        "base08", "base09", "base0A", "base0B", "base0C", "base0D", "base0E", "base0F",
+    ] {
+        let v = y
+            .palette
+            .iter()
+            .find(|(k, _)| k.eq_ignore_ascii_case(key))
+            .map(|(_, v)| v.as_str());
+        if let Some(v) = v {
+            let hex = v.trim().split_whitespace().next().unwrap_or(v).trim();
+            let hex = hex.trim_start_matches('#');
+            if hex.len() >= 6 {
+                preview.push(format!("#{}", hex[..6].to_ascii_uppercase()));
+            }
+        }
+    }
+    let license = y
+        .license
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+        .unwrap_or_else(|| TINTED_COLLECTION_LICENSE.to_string());
+    Ok(SchemeEntry {
+        name: slug.to_string(),
+        url: format!("{TINTED_SCHEME_RAW}/{slug}.yaml"),
+        license,
+        system: y.system.unwrap_or_else(|| "base16".into()),
+        preview,
+        author: y.author.filter(|s| !s.is_empty()),
+        source: Some("tinted-theming".into()),
+        variant: y.variant.filter(|s| !s.is_empty()),
+    })
 }
 
 pub fn install_scheme(paths: &Paths, name: &str) -> Result<PathBuf> {
@@ -326,6 +410,17 @@ mod tests {
         let idx = bundled_index().unwrap();
         assert!(idx.schemes.iter().any(|s| s.name == "heartbox"));
         assert!(idx.fonts.iter().any(|f| f.family == "JetBrains Mono"));
+        // Tinted schemes must not be blindly stamped "MIT" — collection license.
+        let tinted: Vec<_> = idx
+            .schemes
+            .iter()
+            .filter(|s| s.source.as_deref() == Some("tinted-theming"))
+            .collect();
+        assert!(tinted.len() > 100);
+        assert!(tinted.iter().all(|s| s.license != "MIT"));
+        assert!(tinted.iter().all(|s| s.preview.len() == 16));
+        assert!(idx.fonts.iter().all(|f| is_libre(&f.license)));
+        assert!(idx.fonts.iter().any(|f| f.license == "OFL-1.1"));
     }
 
     #[test]

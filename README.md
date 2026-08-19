@@ -186,12 +186,13 @@ itself is colored from the **selected** (not yet applied) scheme.
 ## Marketplace
 
 No store, no accounts. `irongall market update` (or `u` in the Market pane)
-refreshes a local index:
+downloads the [Tinted Theming schemes](https://github.com/tinted-theming/schemes)
+zip and rebuilds a local index (palette previews + authors).
 
-| Kind | Source |
-|---|---|
-| Color schemes | [Tinted Theming](https://github.com/tinted-theming/schemes) Base16 YAML (`spec-0.11/base16`), plus irongall's own `heartbox` / `gravas` |
-| Fonts | OFL / SIL / Apache / MIT families only, downloaded from each project's GitHub releases into `~/.local/share/fonts/irongall/` |
+| Kind | Source | License |
+|---|---|---|
+| Color schemes | Tinted Theming Base16 YAML (`spec-0.11/base16`), plus irongall's `heartbox` / `gravas` | The **collection** is MIT (`tinted-theming/schemes/LICENSE`). Individual YAML files almost never carry their own license field; irongall labels those `MIT (tinted-theming collection)` rather than inventing a per-scheme license. Original palette authors are shown as `author`. |
+| Fonts | Each project's GitHub releases → `~/.local/share/fonts/irongall/` | Only OFL-1.1 / SIL / Ubuntu Font Licence / MIT / Apache. The label on each font is that project's actual license, not a default. |
 
 Install a scheme or font from the Market pane (`i`) or `irongall theme install NAME` / `irongall font install FAMILY`. Commercial fonts stay out of the market — `irongall font import /path/to/ttf-dir` for fonts you already own.
 

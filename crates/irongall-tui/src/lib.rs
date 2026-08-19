@@ -1,5 +1,6 @@
 //! Keyboard-only TUI for irongall.
 
+use std::cell::Cell;
 use std::collections::HashSet;
 use std::io::{self, stdout};
 
@@ -110,6 +111,7 @@ struct App {
     font_hits: Vec<usize>,
     app_hits: Vec<usize>,
     market_hits: Vec<usize>,
+    list_h: Cell<u16>,
     quit: bool,
 }
 
@@ -172,6 +174,7 @@ pub fn run() -> Result<()> {
         font_hits: Vec::new(),
         app_hits: Vec::new(),
         market_hits: Vec::new(),
+        list_h: Cell::new(12),
         quit: false,
     };
     rebuild_hits(&mut app);
@@ -332,6 +335,16 @@ fn handle(app: &mut App, key: KeyEvent) -> Result<()> {
         KeyCode::Char('6') => app.pane = Pane::Status,
         KeyCode::Char('j') | KeyCode::Down => move_sel(app, 1),
         KeyCode::Char('k') | KeyCode::Up => move_sel(app, -1),
+        KeyCode::PageDown => move_sel(app, app.page()),
+        KeyCode::PageUp => move_sel(app, -app.page()),
+        KeyCode::Char('f') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+            move_sel(app, app.page());
+        }
+        KeyCode::Char('b') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+            move_sel(app, -app.page());
+        }
+        KeyCode::Home => move_sel_to(app, 0),
+        KeyCode::End => move_sel_to(app, usize::MAX),
         KeyCode::Char('/') => {
             app.filtering = true;
             app.modal = Modal::Filter;
@@ -649,14 +662,39 @@ fn refresh_apps(app: &mut App) {
     rebuild_hits(app);
 }
 
-fn move_sel(app: &mut App, delta: i32) {
-    let n = match app.pane {
+impl App {
+    fn page(&self) -> i32 {
+        i32::from(self.list_h.get().saturating_sub(1).max(1))
+    }
+}
+
+fn list_len(app: &App) -> usize {
+    match app.pane {
         Pane::Themes => app.theme_hits.len(),
         Pane::Fonts => app.font_hits.len(),
         Pane::Apps => app.app_hits.len(),
         Pane::Market => app.market_hits.len(),
         Pane::Size | Pane::Status => 0,
+    }
+}
+
+fn move_sel_to(app: &mut App, idx: usize) {
+    let n = list_len(app);
+    if n == 0 {
+        return;
+    }
+    let sel = match app.pane {
+        Pane::Themes => &mut app.theme_sel,
+        Pane::Fonts => &mut app.font_sel,
+        Pane::Apps => &mut app.app_sel,
+        Pane::Market => &mut app.market_sel,
+        _ => return,
     };
+    *sel = idx.min(n - 1);
+}
+
+fn move_sel(app: &mut App, delta: i32) {
+    let n = list_len(app);
     if n == 0 {
         return;
     }
@@ -902,6 +940,7 @@ fn draw_center(
         }))
         .style(Style::default().bg(bg).fg(fg));
     let inner = block.inner(area);
+    app.list_h.set(inner.height.max(1));
     f.render_widget(block, area);
 
     match app.pane {
@@ -1094,42 +1133,126 @@ fn draw_preview(
                 );
             }
         }
-        Pane::Market => {
-            let text = match app.market_tab {
-                MarketTab::Schemes => {
-                    if let Some(s) = current_market_scheme(app) {
-                        let src = s.source.as_deref().unwrap_or("tinted-theming");
-                        format!(
-                            "{}\nsource   {src}\nlicense  {}\nsystem   {}\n{}\n\nSchemes come from Tinted Theming\n(github.com/tinted-theming/schemes)\nplus irongall's own heartbox/gravas.\n\nu  refresh list    i / Enter  install",
-                            s.name, s.license, s.system, s.url
-                        )
+        Pane::Market => match app.market_tab {
+            MarketTab::Schemes => {
+                if let Some(s) = current_market_scheme(app) {
+                    if let Some(local) = app.schemes.iter().find(|x| x.slug == s.name) {
+                        draw_scheme_preview(f, inner, local, bg);
                     } else {
-                        "no schemes — press u to fetch tinted-theming".into()
+                        draw_hex_preview(f, inner, s, bg, fg);
                     }
                 }
-                MarketTab::Fonts => {
-                    if let Some(fam) = current_market_font(app) {
-                        format!(
-                            "{}\nlicense  {}\nsource   {}\n{}\n\nFonts are OFL/SIL/Apache/MIT only.\nDownloaded from the project's GitHub\nreleases into ~/.local/share/fonts/irongall.\n\ni / Enter  install",
-                            fam.family,
-                            fam.license,
-                            fam.source,
-                            fam.notes.clone().unwrap_or_default()
-                        )
-                    } else {
-                        "no fonts in index".into()
-                    }
+            }
+            MarketTab::Fonts => {
+                if let Some(fam) = current_market_font(app) {
+                    let text = format!(
+                        "{}\nlicense  {}\nsource   {}\n{}\n\n{}\n\nGlyphs render in the CURRENT terminal\nfont until you install + apply.\nLibre fonts only (OFL/SIL/UFL/MIT).\n\ni / Enter  install → ~/.local/share/fonts/irongall",
+                        fam.family,
+                        fam.license,
+                        fam.source,
+                        fam.notes.clone().unwrap_or_default(),
+                        font::PANGRAM
+                    );
+                    f.render_widget(
+                        Paragraph::new(text)
+                            .style(Style::default().fg(fg).bg(bg))
+                            .wrap(Wrap { trim: true }),
+                        inner,
+                    );
                 }
-            };
-            f.render_widget(
-                Paragraph::new(text)
-                    .style(Style::default().fg(fg).bg(bg))
-                    .wrap(Wrap { trim: true }),
-                inner,
-            );
-        }
+            }
+        },
     }
     let _ = acc;
+}
+
+fn draw_hex_preview(
+    f: &mut ratatui::Frame,
+    area: Rect,
+    s: &SchemeEntry,
+    bg: Color,
+    fg: Color,
+) {
+    let colors: Vec<irongall_core::Rgb> = s
+        .preview
+        .iter()
+        .filter_map(|h| irongall_core::Rgb::parse(h).ok())
+        .collect();
+    let src = s.source.as_deref().unwrap_or("tinted-theming");
+    let author = s.author.as_deref().unwrap_or("—");
+    let variant = s.variant.as_deref().unwrap_or("");
+    let mut lines: Vec<Line> = Vec::new();
+    lines.push(Line::from(Span::styled(
+        format!("{}  {}", s.name, variant),
+        Style::default().fg(fg).bg(bg).add_modifier(Modifier::BOLD),
+    )));
+    lines.push(Line::from(Span::styled(
+        format!("author  {author}"),
+        Style::default().fg(fg).bg(bg),
+    )));
+    lines.push(Line::from(Span::styled(
+        format!("license {src} · {}", s.license),
+        Style::default().fg(fg).bg(bg),
+    )));
+    lines.push(Line::from(""));
+    if colors.is_empty() {
+        lines.push(Line::from("no palette preview (install to preview)"));
+    } else {
+        let mut spans = Vec::new();
+        for (i, c) in colors.iter().enumerate() {
+            spans.push(Span::styled("  ", Style::default().bg(rgb(*c))));
+            if i == 7 {
+                spans.push(Span::raw(" "));
+            }
+        }
+        lines.push(Line::from(spans));
+        if colors.len() >= 16 {
+            let p0 = colors[0];
+            let p1 = colors[1];
+            let p2 = colors[2];
+            let p3 = colors[3];
+            let p5 = colors[5];
+            let p8 = colors[8];
+            let pb = colors[11];
+            let pe = colors[14];
+            let pd = colors[13];
+            lines.push(Line::from(""));
+            lines.push(Line::from(Span::styled(
+                format!(" {} ", s.name),
+                Style::default().bg(rgb(p1)).fg(rgb(p5)),
+            )));
+            lines.push(Line::from(Span::styled(
+                " // a comment about the window",
+                Style::default().fg(rgb(p3)).bg(rgb(p0)),
+            )));
+            lines.push(Line::from(vec![
+                Span::styled(" fn ", Style::default().fg(rgb(pe)).bg(rgb(p0))),
+                Span::styled("main", Style::default().fg(rgb(pd)).bg(rgb(p0))),
+                Span::styled("() {", Style::default().fg(rgb(p5)).bg(rgb(p0))),
+            ]));
+            lines.push(Line::from(vec![
+                Span::styled("   print(", Style::default().fg(rgb(p5)).bg(rgb(p0))),
+                Span::styled("\"hello\"", Style::default().fg(rgb(pb)).bg(rgb(p0))),
+                Span::styled(")", Style::default().fg(rgb(p5)).bg(rgb(p0))),
+            ]));
+            lines.push(Line::from(Span::styled(
+                "   error: something went wrong",
+                Style::default().fg(rgb(p8)).bg(rgb(p0)),
+            )));
+            lines.push(Line::from(Span::styled(
+                " selected line of text ",
+                Style::default().bg(rgb(p2)).fg(rgb(p5)),
+            )));
+        }
+    }
+    lines.push(Line::from(""));
+    lines.push(Line::from("i / Enter  install   u  refresh from tinted-theming"));
+    f.render_widget(
+        Paragraph::new(lines)
+            .style(Style::default().bg(bg).fg(fg))
+            .wrap(Wrap { trim: false }),
+        area,
+    );
 }
 
 fn draw_scheme_preview(f: &mut ratatui::Frame, area: Rect, s: &Scheme, bg: Color) {
@@ -1217,6 +1340,7 @@ irongall\n\
   Tab / Shift-Tab   next / prev section\n\
   1–6               Themes Fonts Size Apps Market Status\n\
   j/k ↑↓            move\n\
+  PgUp/PgDn Home/End  page / jump\n\
   /                 filter\n\
   Enter             set current (no apply)\n\
   a                 set + apply\n\
