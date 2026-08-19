@@ -1,6 +1,6 @@
 //! Keyboard-only TUI for irongall.
 
-use std::cell::{Cell, RefCell};
+use std::cell::Cell;
 use std::collections::HashSet;
 use std::io::{self, stdout};
 
@@ -122,10 +122,29 @@ impl Hit {
     }
 }
 
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum FontSlot {
+    Family,
+    Sans,
+    Serif,
+    Mono,
+}
+
+impl FontSlot {
+    fn label(self) -> &'static str {
+        match self {
+            Self::Family => "family",
+            Self::Sans => "sans",
+            Self::Serif => "serif",
+            Self::Mono => "mono",
+        }
+    }
+}
+
 enum Modal {
     None,
     Help,
-    ConfirmApply { files: usize },
+    ConfirmApply,
     #[allow(dead_code)]
     Message(String),
     Filter,
@@ -161,8 +180,8 @@ struct App {
     app_hits: Vec<usize>,
     market_hits: Vec<Hit>,
     shade: Shade,
+    font_slot: FontSlot,
     list_h: Cell<u16>,
-    font_preview: RefCell<Option<(String, u16, u16, String)>>,
     quit: bool,
 }
 
@@ -226,8 +245,8 @@ pub fn run() -> Result<()> {
         app_hits: Vec::new(),
         market_hits: Vec::new(),
         shade: Shade::All,
+        font_slot: FontSlot::Family,
         list_h: Cell::new(12),
-        font_preview: RefCell::new(None),
         quit: false,
     };
     rebuild_hits(&mut app);
@@ -293,7 +312,7 @@ fn handle(app: &mut App, key: KeyEvent) -> Result<()> {
         app.modal = Modal::None;
         return Ok(());
     }
-    if let Modal::ConfirmApply { .. } = app.modal {
+    if let Modal::ConfirmApply = app.modal {
         match key.code {
             KeyCode::Char('y') | KeyCode::Enter => {
                 app.modal = Modal::None;
@@ -439,6 +458,32 @@ fn handle_pane(app: &mut App, code: KeyCode) -> Result<()> {
         Pane::Fonts => match code {
             KeyCode::Enter => set_font(app, false)?,
             KeyCode::Char('a') => set_font(app, true)?,
+            KeyCode::Char('g') => {
+                app.font_slot = FontSlot::Family;
+                app.status_msg = "slot · family (all three unless overridden)".into();
+            }
+            KeyCode::Char('s') => {
+                app.font_slot = FontSlot::Sans;
+                app.status_msg = "slot · sans".into();
+            }
+            KeyCode::Char('e') => {
+                app.font_slot = FontSlot::Serif;
+                app.status_msg = "slot · serif".into();
+            }
+            KeyCode::Char('m') => {
+                app.font_slot = FontSlot::Mono;
+                app.status_msg = "slot · mono".into();
+            }
+            KeyCode::Char('c') => {
+                match app.font_slot {
+                    FontSlot::Family => {}
+                    FontSlot::Sans => app.cfg.font.sans = None,
+                    FontSlot::Serif => app.cfg.font.serif = None,
+                    FontSlot::Mono => app.cfg.font.mono = None,
+                }
+                app.cfg.save(&app.paths)?;
+                app.status_msg = format!("{} cleared (inherits family)", app.font_slot.label());
+            }
             KeyCode::Char('i') => {
                 if let Some(f) = current_font(app) {
                     match market::install_font(&app.paths, &f.family) {
@@ -636,9 +681,14 @@ fn set_font(app: &mut App, apply_now: bool) -> Result<()> {
         }
         return Ok(());
     }
-    app.cfg.font.family = family.clone();
+    match app.font_slot {
+        FontSlot::Family => app.cfg.font.family = family.clone(),
+        FontSlot::Sans => app.cfg.font.sans = Some(family.clone()),
+        FontSlot::Serif => app.cfg.font.serif = Some(family.clone()),
+        FontSlot::Mono => app.cfg.font.mono = Some(family.clone()),
+    }
     app.cfg.save(&app.paths)?;
-    app.status_msg = format!("font → {family}");
+    app.status_msg = format!("{} → {family}", app.font_slot.label());
     if apply_now {
         do_apply(app, None)?;
     }
@@ -679,16 +729,7 @@ fn market_install(app: &mut App) -> Result<()> {
 }
 
 fn request_apply(app: &mut App) {
-    let n = app
-        .apps
-        .iter()
-        .filter(|a| matches!(a.state.as_str(), "global" | "tweak" | "hold"))
-        .count();
-    if n > 8 {
-        app.modal = Modal::ConfirmApply { files: n };
-    } else {
-        let _ = do_apply(app, None);
-    }
+    app.modal = Modal::ConfirmApply;
 }
 
 fn do_apply(app: &mut App, only: Option<String>) -> Result<()> {
@@ -1002,7 +1043,7 @@ fn draw(f: &mut ratatui::Frame, app: &App) {
 
     match &app.modal {
         Modal::Help => draw_help(f, bg, fg, acc),
-        Modal::ConfirmApply { files } => draw_confirm(f, *files, bg, fg, acc),
+        Modal::ConfirmApply => draw_confirm(f, app, bg, fg, acc),
         Modal::Message(m) => draw_msg(f, m, bg, fg, acc),
         Modal::PickSize { value, for_app } => {
             let who = for_app.as_deref().unwrap_or("global");
@@ -1068,7 +1109,12 @@ fn draw_center(
             Shade::Dark => " themes · dark  (v) ",
             Shade::Light => " themes · light  (v) ",
         },
-        Pane::Fonts => " fonts ",
+        Pane::Fonts => match app.font_slot {
+            FontSlot::Family => " fonts · family  (g/s/e/m) ",
+            FontSlot::Sans => " fonts · sans  (g/s/e/m) ",
+            FontSlot::Serif => " fonts · serif  (g/s/e/m) ",
+            FontSlot::Mono => " fonts · mono  (g/s/e/m) ",
+        },
         Pane::Size => " size ",
         Pane::Apps => " apps ",
         Pane::Market => match app.market_tab {
@@ -1112,7 +1158,7 @@ fn draw_center(
         }),
         Pane::Fonts => draw_windowed(f, inner, app.font_hits.len(), app.font_sel, acc, fg, bg, |i| {
             let fam = &app.fonts[app.font_hits[i]];
-            let cur = if fam.family == app.cfg.font.family {
+            let cur = if fam.family == slot_value(app) {
                 "*"
             } else {
                 " "
@@ -1136,11 +1182,10 @@ fn draw_center(
         Pane::Apps => draw_windowed(f, inner, app.app_hits.len(), app.app_sel, acc, fg, bg, |i| {
             let r = &app.apps[app.app_hits[i]];
             format!(
-                "{:<10} {:<10} {:<10} {:<16} {}",
+                "{:<10} {:<12} {:<14} {:>4}",
                 trunc(&r.id, 10),
-                r.kind,
-                r.state,
-                trunc(&r.theme, 16),
+                app_chip(r),
+                trunc(&r.theme, 14),
                 r.size
                     .map(config::format_pt)
                     .unwrap_or_else(|| "—".into())
@@ -1175,17 +1220,13 @@ fn draw_center(
             }
         },
         Pane::Status => {
-            let c = discovery::counts(&app.apps);
-            let mut text = format!(
-                "theme  {}\nfont   {}\nsize   {} pt\n\n{}\n\n{}",
-                app.cfg.theme.name,
-                app.cfg.font.family,
-                config::format_pt(app.cfg.font.size),
-                c.one_line(),
-                app.last_report
-            );
-            if text.len() > 2000 {
-                text.truncate(2000);
+            let mut text = apply_plan(app);
+            if !app.last_report.is_empty() {
+                text.push_str("\nlast apply\n");
+                text.push_str(&app.last_report);
+            }
+            if text.len() > 4000 {
+                text.truncate(4000);
             }
             f.render_widget(
                 Paragraph::new(text)
@@ -1254,21 +1295,25 @@ fn draw_preview(
             }
         }
         Pane::Fonts => {
-            if let Some(fam) = current_font(app) {
-                let cols = inner.width.saturating_sub(1);
-                let rows = inner.height.saturating_sub(4).clamp(4, 12);
-                let preview = font_preview_cached(app, &fam.family, cols, rows);
-                let text = format!(
-                    "{}\n\n{preview}",
-                    fam.family,
-                );
-                f.render_widget(
-                    Paragraph::new(text)
-                        .style(Style::default().fg(fg).bg(bg))
-                        .wrap(Wrap { trim: false }),
-                    inner,
-                );
-            }
+            let highlighted = current_font(app).map(|f| f.family.as_str()).unwrap_or("—");
+            let mark = |slot: FontSlot, name: &str, ov: bool| {
+                let cur = if app.font_slot == slot { "*" } else { " " };
+                let tag = if ov { "  override" } else { "  (family)" };
+                format!("{cur}{:<6}  {name}{tag}", slot.label())
+            };
+            let text = format!(
+                "highlighted  {highlighted}\n\n{}\n{}\n{}\n{}\n\ng family   s sans   e serif   m mono\nEnter set this slot   c clear override",
+                mark(FontSlot::Family, &app.cfg.font.family, false),
+                mark(FontSlot::Sans, app.cfg.font.sans(), app.cfg.font.sans.is_some()),
+                mark(FontSlot::Serif, app.cfg.font.serif(), app.cfg.font.serif.is_some()),
+                mark(FontSlot::Mono, app.cfg.font.mono(), app.cfg.font.mono.is_some()),
+            );
+            f.render_widget(
+                Paragraph::new(text)
+                    .style(Style::default().fg(fg).bg(bg))
+                    .wrap(Wrap { trim: false }),
+                inner,
+            );
         }
         Pane::Size => {
             let text = format!(
@@ -1317,16 +1362,13 @@ fn draw_preview(
             }
             MarketTab::Fonts => {
                 if let Some(fam) = current_market_font(app) {
-                    let installed = app.installed_fonts.contains(&fam.family);
-                    let sample = if installed {
-                        let cols = inner.width.saturating_sub(1);
-                        let rows = 6u16;
-                        font_preview_cached(app, &fam.family, cols, rows)
+                    let installed = if app.installed_fonts.contains(&fam.family) {
+                        "installed"
                     } else {
-                        "not installed — i to download, then preview".into()
+                        "not installed"
                     };
                     let text = format!(
-                        "{}\nlicense  {}\nsource   {}\n{}\n\n{sample}\n\ni / Enter  install",
+                        "{}\nlicense  {}\nsource   {}\n{}\n{installed}\n\ni / Enter  install",
                         fam.family,
                         fam.license,
                         fam.source,
@@ -1528,13 +1570,19 @@ irongall\n\
   R                 rollback last session\n\
   q                 quit\n\
 \n\
+fonts pane\n\
+  g/s/e/m           family / sans / serif / mono slot\n\
+  Enter             set highlighted into that slot\n\
+  c                 clear sans/serif/mono override\n\
+\n\
 apps pane\n\
   t/f/s             theme / font / size override\n\
   c reset   x skip   h hold   a apply this\n\
   m missing   w no-writer\n\
 \n\
 size                ←/→ or [ ] in 0.5 pt (8–24)\n\
-market              s schemes  f fonts  i install  u update";
+market              s schemes  f fonts  i install  u update\n\
+A                   confirm + list of writes";
     f.render_widget(
         Paragraph::new(text).block(
             Block::default()
@@ -1547,20 +1595,23 @@ market              s schemes  f fonts  i install  u update";
     );
 }
 
-fn draw_confirm(f: &mut ratatui::Frame, n: usize, bg: Color, fg: Color, acc: Color) {
-    let area = centered(f.area(), 50, 6);
+fn draw_confirm(f: &mut ratatui::Frame, app: &App, bg: Color, fg: Color, acc: Color) {
+    let body = format!(
+        "{}\n y / Enter  apply     n / Esc  cancel",
+        apply_plan(app)
+    );
+    let h = (body.lines().count() as u16 + 2).clamp(8, f.area().height.saturating_sub(2));
+    let w = f.area().width.saturating_sub(4).min(76).max(40);
+    let area = centered(f.area(), w, h);
     f.render_widget(Clear, area);
     f.render_widget(
-        Paragraph::new(format!(
-            " apply will touch ~{n} programs\n\n y / Enter  apply     n / Esc  cancel"
-        ))
-        .block(
+        Paragraph::new(body).block(
             Block::default()
-                .title(" confirm ")
+                .title(" apply? ")
                 .borders(Borders::ALL)
                 .border_style(Style::default().fg(acc))
                 .style(Style::default().bg(bg).fg(fg)),
-        ),
+        ).wrap(Wrap { trim: false }),
         area,
     );
 }
@@ -1590,16 +1641,71 @@ fn centered(area: Rect, w: u16, h: u16) -> Rect {
     }
 }
 
-fn font_preview_cached(app: &App, family: &str, cols: u16, rows: u16) -> String {
-    if let Some((f, c, r, s)) = app.font_preview.borrow().as_ref() {
-        if f == family && *c == cols && *r == rows {
-            return s.clone();
+fn slot_value(app: &App) -> &str {
+    match app.font_slot {
+        FontSlot::Family => &app.cfg.font.family,
+        FontSlot::Sans => app.cfg.font.sans(),
+        FontSlot::Serif => app.cfg.font.serif(),
+        FontSlot::Mono => app.cfg.font.mono(),
+    }
+}
+
+fn app_chip(r: &AppRow) -> String {
+    match r.state.as_str() {
+        "skip" => "[skip]".into(),
+        "hold" => "[hold]".into(),
+        "tweak" => match r.size {
+            Some(sz) => format!("[tweak {}]", config::format_pt(sz)),
+            None => "[tweak]".into(),
+        },
+        "no-writer" => "[no-write]".into(),
+        "missing" => "[gone]".into(),
+        _ => "[global]".into(),
+    }
+}
+
+fn apply_plan(app: &App) -> String {
+    let c = discovery::counts(&app.apps);
+    let mut s = format!(
+        "theme  {}\nfamily {}\n  sans  {}{}\n  serif {}{}\n  mono  {}{}\nsize   {} pt\n\n{}\n\n",
+        app.cfg.theme.name,
+        app.cfg.font.family,
+        app.cfg.font.sans(),
+        if app.cfg.font.sans.is_some() { "  *" } else { "" },
+        app.cfg.font.serif(),
+        if app.cfg.font.serif.is_some() { "  *" } else { "" },
+        app.cfg.font.mono(),
+        if app.cfg.font.mono.is_some() { "  *" } else { "" },
+        config::format_pt(app.cfg.font.size),
+        c.one_line(),
+    );
+    for r in &app.apps {
+        if r.state == "missing" {
+            continue;
+        }
+        let files = CatalogEntry::get(&r.id)
+            .map(|e| e.config_globs.join(" "))
+            .unwrap_or_default();
+        match r.state.as_str() {
+            "skip" | "no-writer" => {
+                s.push_str(&format!("  {:<12} {}\n", r.id, app_chip(r)));
+            }
+            _ => {
+                s.push_str(&format!(
+                    "  {:<12} {:<12} {:<16} {:>4}  {}\n",
+                    r.id,
+                    app_chip(r),
+                    trunc(&r.theme, 16),
+                    r.size
+                        .map(config::format_pt)
+                        .unwrap_or_else(|| "—".into()),
+                    files,
+                ));
+            }
         }
     }
-    let rendered = font::preview_braille(family, cols as usize, rows as usize)
-        .unwrap_or_else(|e| format!("(no raster preview: {e})"));
-    *app.font_preview.borrow_mut() = Some((family.to_string(), cols, rows, rendered.clone()));
-    rendered
+    s.push_str("\nA / y  writes only IRONGALL markers.  R  rollback.");
+    s
 }
 
 fn trunc(s: &str, n: usize) -> String {

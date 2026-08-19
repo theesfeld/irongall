@@ -1,6 +1,6 @@
 # Maintainer: irongall contributors
 pkgname=irongall-bin
-pkgver=0.1.4
+pkgver=0.1.5
 pkgrel=1
 pkgdesc="One 16-color theme, one typeface, one font size — applied across Linux (prebuilt)"
 arch=('x86_64' 'aarch64')

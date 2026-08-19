@@ -312,8 +312,6 @@ fn cmd_font(cmd: FontCmd) -> irongall_core::Result<()> {
             println!("family:  {}", found.family);
             println!("styles:  {}", found.styles.join(", "));
             println!("group:   {:?}", found.group);
-            println!("pangram: {}", font::PANGRAM);
-            println!("note:    glyph rendering uses the current terminal font");
         }
         FontCmd::Apply { family } => {
             cmd_apply(None, Some(family), None, false, None)?;
