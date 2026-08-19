@@ -760,7 +760,7 @@ checksum = "6a756c3fac73139e83f14c2d742155dd2b78d3ee56597b419a0579b7bdd6dd78"
 
 [[package]]
 name = "irongall"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "clap",
  "clap_complete",
@@ -771,7 +771,7 @@ dependencies = [
 
 [[package]]
 name = "irongall-core"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "dirs",
  "hex",
@@ -788,7 +788,7 @@ dependencies = [
 
 [[package]]
 name = "irongall-tui"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "crossterm",
  "irongall-core",

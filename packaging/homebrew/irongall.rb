@@ -3,7 +3,7 @@
 class Irongall < Formula
   desc "One 16-color theme, one typeface, one font size — applied across Linux"
   homepage "https://github.com/theesfeld/irongall"
-  url "https://github.com/theesfeld/irongall/archive/refs/tags/v0.1.1.tar.gz"
+  url "https://github.com/theesfeld/irongall/archive/refs/tags/v0.1.2.tar.gz"
   sha256 "0000000000000000000000000000000000000000000000000000000000000000"
   license "MIT"
   head "https://github.com/theesfeld/irongall.git", branch: "main"

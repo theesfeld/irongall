@@ -1,8 +1,6 @@
-use std::collections::HashSet;
 use std::env;
 use std::fs;
 use std::path::PathBuf;
-use std::process::Command;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use serde::{Deserialize, Serialize};
@@ -53,20 +51,16 @@ pub struct DiscoveryCache {
     pub apps: Vec<Discovered>,
 }
 
-/// Live scan of the catalog against PATH / configs / desktop files / pacman.
+/// Live scan of the catalog against PATH / configs / desktop files.
+/// Pacman is skipped: a 60ms spawn for a signal we already get from PATH
+/// and `.desktop` files.
 pub fn scan(paths: &Paths) -> Result<Vec<Discovered>> {
     let isolated = std::env::var_os("IRONGALL_TEST_ROOT").is_some();
     let path_dirs = path_dirs();
-    let bins = list_bins(&path_dirs);
     let desktop_dirs = desktop_dirs(paths, isolated);
-    let packages = if !isolated && bins.contains("pacman") {
-        pacman_all()
-    } else {
-        HashSet::new()
-    };
     let mut apps = Vec::new();
     for entry in catalog::all() {
-        let (present, matched) = is_present(entry, paths, &bins, &desktop_dirs, &packages);
+        let (present, matched) = is_present(entry, paths, &path_dirs, &desktop_dirs);
         apps.push(Discovered {
             id: entry.id.to_string(),
             name: entry.name.to_string(),
@@ -103,14 +97,13 @@ pub fn load_cache(paths: &Paths) -> Option<DiscoveryCache> {
 fn is_present(
     entry: &CatalogEntry,
     paths: &Paths,
-    bins: &HashSet<String>,
+    path_dirs: &[PathBuf],
     desktop_dirs: &[PathBuf],
-    packages: &HashSet<String>,
 ) -> (bool, Vec<String>) {
     let mut matched = Vec::new();
 
     for bin in entry.binaries {
-        if bins.contains(*bin) {
+        if which(bin, path_dirs).is_some() {
             matched.push(format!("binary:{bin}"));
         }
     }
@@ -125,11 +118,6 @@ fn is_present(
             if p.is_file() {
                 matched.push(format!("desktop:{}", p.display()));
             }
-        }
-    }
-    for pkg in entry.packages {
-        if packages.contains(*pkg) {
-            matched.push(format!("package:{pkg}"));
         }
     }
 
@@ -191,19 +179,6 @@ pub fn which(bin: &str, path_dirs: &[PathBuf]) -> Option<PathBuf> {
     None
 }
 
-fn list_bins(path_dirs: &[PathBuf]) -> HashSet<String> {
-    let mut out = HashSet::new();
-    for dir in path_dirs {
-        let Ok(rd) = fs::read_dir(dir) else { continue };
-        for ent in rd.flatten() {
-            if let Some(name) = ent.file_name().to_str() {
-                out.insert(name.to_string());
-            }
-        }
-    }
-    out
-}
-
 pub fn path_dirs() -> Vec<PathBuf> {
     env::var_os("PATH")
         .map(|p| env::split_paths(&p).collect())
@@ -217,21 +192,6 @@ fn desktop_dirs(paths: &Paths, isolated: bool) -> Vec<PathBuf> {
         dirs.push(PathBuf::from("/usr/local/share/applications"));
     }
     dirs
-}
-
-fn pacman_all() -> HashSet<String> {
-    Command::new("pacman")
-        .arg("-Qq")
-        .output()
-        .ok()
-        .map(|o| {
-            String::from_utf8_lossy(&o.stdout)
-                .lines()
-                .map(|l| l.trim().to_string())
-                .filter(|l| !l.is_empty())
-                .collect()
-        })
-        .unwrap_or_default()
 }
 
 fn now_secs() -> u64 {
@@ -360,7 +320,7 @@ pub struct AppRow {
 }
 
 pub fn rows(paths: &Paths, cfg: &Config, include_missing: bool) -> Result<Vec<AppRow>> {
-    let discovered = scan_and_cache(paths)?;
+    let discovered = scan(paths)?;
     let mut out = Vec::new();
     for d in discovered {
         let entry = match CatalogEntry::get(&d.id) {

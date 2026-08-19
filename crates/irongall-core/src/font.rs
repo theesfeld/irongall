@@ -2,9 +2,27 @@ use std::collections::BTreeSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
+use std::sync::{Mutex, OnceLock};
 
 use crate::error::{Error, Result};
 use crate::paths::Paths;
+
+static LIST_CACHE: OnceLock<Mutex<Option<Vec<FontFamily>>>> = OnceLock::new();
+static NERD_CACHE: OnceLock<Mutex<Option<Option<String>>>> = OnceLock::new();
+
+fn list_cache() -> &'static Mutex<Option<Vec<FontFamily>>> {
+    LIST_CACHE.get_or_init(|| Mutex::new(None))
+}
+
+/// Drop cached `fc-list` results after installing fonts.
+pub fn invalidate_cache() {
+    if let Ok(mut g) = list_cache().lock() {
+        *g = None;
+    }
+    if let Ok(mut g) = NERD_CACHE.get_or_init(|| Mutex::new(None)).lock() {
+        *g = None;
+    }
+}
 
 /// A font family as seen by fontconfig.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -20,11 +38,25 @@ pub enum FontGroup {
     Other,
 }
 
-/// Run `fc-list` and return unique families. Emoji / CJK / last-resort
-/// go in `Other`; everything else is `Main`.
+/// Unique families from fontconfig. Emoji / CJK / last-resort go in `Other`.
+/// Results are cached until `invalidate_cache`.
 pub fn list_installed() -> Result<Vec<FontFamily>> {
+    if let Ok(g) = list_cache().lock() {
+        if let Some(v) = g.as_ref() {
+            return Ok(v.clone());
+        }
+    }
+    let v = list_installed_uncached()?;
+    if let Ok(mut g) = list_cache().lock() {
+        *g = Some(v.clone());
+    }
+    Ok(v)
+}
+
+fn list_installed_uncached() -> Result<Vec<FontFamily>> {
+    // Family-only listing is enough for the picker; styles are filled on demand.
     let output = Command::new("fc-list")
-        .args([":", "family", "style"])
+        .args(["-f", "%{family[0]}\n"])
         .output();
     let output = match output {
         Ok(o) if o.status.success() => o,
@@ -44,38 +76,16 @@ pub fn list_installed() -> Result<Vec<FontFamily>> {
         }
     };
     let text = String::from_utf8_lossy(&output.stdout);
-    let mut map: std::collections::BTreeMap<String, BTreeSet<String>> =
-        std::collections::BTreeMap::new();
+    let mut set = BTreeSet::new();
     for line in text.lines() {
-        let line = line.trim();
-        if line.is_empty() {
-            continue;
-        }
-        // `Family,Alias:style=Regular,Bold` or `Family:style=Regular`
-        let (fam_part, style_part) = line.split_once(':').unwrap_or((line, ""));
-        let family = fam_part
-            .split(',')
-            .next()
-            .unwrap_or(fam_part)
-            .trim()
-            .to_string();
-        if family.is_empty() {
-            continue;
-        }
-        let styles = style_part
-            .strip_prefix("style=")
-            .unwrap_or(style_part)
-            .split(',')
-            .map(|s| s.trim().to_string())
-            .filter(|s| !s.is_empty());
-        let entry = map.entry(family).or_default();
-        for s in styles {
-            entry.insert(s);
+        let family = line.split(',').next().unwrap_or(line).trim();
+        if !family.is_empty() {
+            set.insert(family.to_string());
         }
     }
-    let mut out: Vec<FontFamily> = map
+    let mut out: Vec<FontFamily> = set
         .into_iter()
-        .map(|(family, styles)| {
+        .map(|family| {
             let group = if is_other(&family) {
                 FontGroup::Other
             } else {
@@ -83,13 +93,33 @@ pub fn list_installed() -> Result<Vec<FontFamily>> {
             };
             FontFamily {
                 family,
-                styles: styles.into_iter().collect(),
+                styles: Vec::new(),
                 group,
             }
         })
         .collect();
     out.sort_by(|a, b| a.family.to_ascii_lowercase().cmp(&b.family.to_ascii_lowercase()));
     Ok(out)
+}
+
+/// Styles for one family (one extra `fc-list` — only used in the font preview).
+pub fn styles_for(family: &str) -> Vec<String> {
+    let output = Command::new("fc-list")
+        .args([family, "-f", "%{style[0]}\n"])
+        .output();
+    let Ok(o) = output else { return Vec::new() };
+    if !o.status.success() {
+        return Vec::new();
+    }
+    let text = String::from_utf8_lossy(&o.stdout);
+    let mut set = BTreeSet::new();
+    for line in text.lines() {
+        let s = line.trim();
+        if !s.is_empty() {
+            set.insert(s.to_string());
+        }
+    }
+    set.into_iter().collect()
 }
 
 pub fn is_other(family: &str) -> bool {
@@ -148,6 +178,7 @@ pub fn fc_cache() -> Result<()> {
             detail: "fc-cache failed".into(),
         });
     }
+    invalidate_cache();
     Ok(())
 }
 
@@ -162,6 +193,19 @@ pub fn family_installed(family: &str) -> bool {
 
 /// Detect an installed Nerd Font family for `symbol_map` / fallback.
 pub fn detect_nerd_font() -> Option<String> {
+    if let Ok(g) = NERD_CACHE.get_or_init(|| Mutex::new(None)).lock() {
+        if let Some(cached) = g.as_ref() {
+            return cached.clone();
+        }
+    }
+    let found = detect_nerd_font_uncached();
+    if let Ok(mut g) = NERD_CACHE.get_or_init(|| Mutex::new(None)).lock() {
+        *g = Some(found.clone());
+    }
+    found
+}
+
+fn detect_nerd_font_uncached() -> Option<String> {
     let list = list_installed().ok()?;
     const PREFERRED: &[&str] = &[
         "MesloLGS Nerd Font",
@@ -209,6 +253,7 @@ pub fn import_dir(paths: &Paths, src: &Path) -> Result<PathBuf> {
     let dest = paths.fonts_dir().join("imported").join(name);
     copy_fonts(src, &dest)?;
     fc_cache()?;
+    invalidate_cache();
     Ok(dest)
 }
 

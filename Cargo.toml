@@ -4,7 +4,7 @@ members = ["crates/irongall", "crates/irongall-core", "crates/irongall-tui"]
 default-members = ["crates/irongall"]
 
 [workspace.package]
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 license = "MIT"
 repository = "https://github.com/theesfeld/irongall"
@@ -16,8 +16,8 @@ keywords = ["theme", "font", "base16", "tui"]
 categories = ["command-line-utilities"]
 
 [workspace.dependencies]
-irongall-core = { path = "crates/irongall-core", version = "0.1.1" }
-irongall-tui = { path = "crates/irongall-tui", version = "0.1.1" }
+irongall-core = { path = "crates/irongall-core", version = "0.1.2" }
+irongall-tui = { path = "crates/irongall-tui", version = "0.1.2" }
 clap = { version = "4.5", features = ["derive", "env"] }
 clap_complete = "4.5"
 crossterm = "0.28"

@@ -203,7 +203,7 @@ pub fn apply(
         cfg.save(paths)?;
     }
 
-    let discovered = discovery::scan_and_cache(paths)?;
+    let discovered = discovery::scan(paths)?;
     let last = load_last(paths);
     let mut session = Session::begin(paths)?;
     let mut rows = Vec::new();

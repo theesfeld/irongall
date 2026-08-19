@@ -52,14 +52,32 @@ pub fn status_text(paths: &Paths, cfg: &Config) -> Result<String> {
 
     out.push('\n');
     out.push_str("fc-match\n");
-    for q in ["sans-serif", "serif", "monospace", "system-ui"] {
-        match font::fc_match_family(q) {
+    let (matches, rows) = std::thread::scope(|s| {
+        let matches = s.spawn(|| {
+            std::thread::scope(|s2| {
+                let a = s2.spawn(|| font::fc_match_family("sans-serif"));
+                let b = s2.spawn(|| font::fc_match_family("serif"));
+                let c = s2.spawn(|| font::fc_match_family("monospace"));
+                let d = s2.spawn(|| font::fc_match_family("system-ui"));
+                [
+                    ("sans-serif", a.join().unwrap()),
+                    ("serif", b.join().unwrap()),
+                    ("monospace", c.join().unwrap()),
+                    ("system-ui", d.join().unwrap()),
+                ]
+            })
+        });
+        let rows = s.spawn(|| discovery::rows(paths, cfg, true));
+        (matches.join().unwrap(), rows.join().unwrap())
+    });
+    for (q, res) in matches {
+        match res {
             Ok(fam) => out.push_str(&format!("  {q:<12} {fam}\n")),
             Err(e) => out.push_str(&format!("  {q:<12} ({e})\n")),
         }
     }
 
-    let rows = discovery::rows(paths, cfg, true)?;
+    let rows = rows?;
     let counts = discovery::counts(&rows);
     out.push('\n');
     out.push_str("apps\n");

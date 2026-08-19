@@ -179,6 +179,7 @@ pub fn install_font(paths: &Paths, family: &str) -> Result<PathBuf> {
     let dest = paths.fonts_dir().join(sanitize_family(&entry.family));
     extract_fonts(&bytes, &dest)?;
     font::fc_cache()?;
+    font::invalidate_cache();
     Ok(dest)
 }
 
