@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "schemes": [
+    {
+      "name": "heartbox",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/heartbox.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#0A1528", "#E03818", "#1E8AE8"]
+    },
+    {
+      "name": "gravas",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/gravas.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#1C1916", "#C45C3E", "#6A8F4E"]
+    },
+    {
+      "name": "default-dark",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/default-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#181818", "#ab4642", "#7cafc2"]
+    },
+    {
+      "name": "default-light",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/default-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#f8f8f8", "#ab4642", "#7cafc2"]
+    },
+    {
+      "name": "tokyo-night",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/tokyo-night.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#1a1b26", "#f7768e", "#7aa2f7"]
+    },
+    {
+      "name": "catppuccin-mocha",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/catppuccin-mocha.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#1e1e2e", "#f38ba8", "#89b4fa"]
+    },
+    {
+      "name": "dracula",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/dracula.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#282a36", "#ff5555", "#bd93f9"]
+    },
+    {
+      "name": "nord",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/nord.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#2e3440", "#bf616a", "#81a1c1"]
+    },
+    {
+      "name": "gruvbox-dark-hard",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/gruvbox-dark-hard.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#1d2021", "#fb4934", "#83a598"]
+    },
+    {
+      "name": "one-dark",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/one-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#282c34", "#e06c75", "#61afef"]
+    },
+    {
+      "name": "solarized-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/solarized-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": ["#002b36", "#dc322f", "#268bd2"]
+    }
+  ],
+  "fonts": [
+    {
+      "family": "JetBrains Mono",
+      "license": "OFL-1.1",
+      "source": "https://github.com/JetBrains/JetBrainsMono/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/JetBrains-Mono"
+    },
+    {
+      "family": "IBM Plex Mono",
+      "license": "OFL-1.1",
+      "source": "https://github.com/IBM/plex/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/IBM-Plex-Mono"
+    },
+    {
+      "family": "Fira Code",
+      "license": "OFL-1.1",
+      "source": "https://github.com/tonsky/FiraCode/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/Fira-Code"
+    },
+    {
+      "family": "Iosevka",
+      "license": "OFL-1.1",
+      "source": "https://github.com/be5invis/Iosevka/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/Iosevka"
+    },
+    {
+      "family": "Noto Sans",
+      "license": "OFL-1.1",
+      "source": "https://github.com/notofonts/latin-greek-cyrillic/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/Noto-Sans"
+    },
+    {
+      "family": "Noto Sans Mono",
+      "license": "OFL-1.1",
+      "source": "https://github.com/notofonts/latin-greek-cyrillic/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/Noto-Sans-Mono"
+    },
+    {
+      "family": "Inter",
+      "license": "OFL-1.1",
+      "source": "https://github.com/rsms/inter/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/Inter"
+    },
+    {
+      "family": "Source Serif 4",
+      "license": "OFL-1.1",
+      "source": "https://github.com/adobe-fonts/source-serif/releases/latest",
+      "install": "github-release-zip",
+      "notes": "installs into ~/.local/share/fonts/irongall/Source-Serif-4"
+    }
+  ]
+}

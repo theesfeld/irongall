@@ -1,0 +1,27 @@
+[package]
+name = "irongall-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Scheme, font, catalog, discovery, and apply engine for irongall"
+authors.workspace = true
+rust-version.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+dirs.workspace = true
+hex.workspace = true
+indexmap.workspace = true
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml.workspace = true
+thiserror.workspace = true
+toml.workspace = true
+zip.workspace = true
+
+[dev-dependencies]
+tempfile.workspace = true

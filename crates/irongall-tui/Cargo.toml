@@ -1,0 +1,17 @@
+[package]
+name = "irongall-tui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "Terminal UI for irongall"
+authors.workspace = true
+rust-version.workspace = true
+keywords.workspace = true
+categories.workspace = true
+
+[dependencies]
+crossterm.workspace = true
+irongall-core.workspace = true
+ratatui.workspace = true

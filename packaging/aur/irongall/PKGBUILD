@@ -1,0 +1,47 @@
+# Maintainer: irongall contributors
+pkgname=irongall
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="One 16-color theme, one typeface, one font size — applied across Linux"
+arch=('x86_64' 'aarch64')
+url="https://github.com/theesfeld/irongall"
+license=('MIT')
+depends=('fontconfig' 'gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/theesfeld/irongall/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  export CARGO_HOME="$srcdir/cargo-home"
+  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  export CARGO_HOME="$srcdir/cargo-home"
+  export CARGO_TARGET_DIR="$srcdir/target"
+  cargo build --frozen --release --locked
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  export CARGO_HOME="$srcdir/cargo-home"
+  export CARGO_TARGET_DIR="$srcdir/target"
+  cargo test --frozen --release --locked
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 "$srcdir/target/release/irongall" "$pkgdir/usr/bin/irongall"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  if [ -f completions/irongall.bash ]; then
+    install -Dm644 completions/irongall.bash \
+      "$pkgdir/usr/share/bash-completion/completions/irongall"
+  fi
+  if [ -f completions/irongall.fish ]; then
+    install -Dm644 completions/irongall.fish \
+      "$pkgdir/usr/share/fish/vendor_completions.d/irongall.fish"
+  fi
+}

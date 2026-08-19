@@ -1,0 +1,35 @@
+# Maintainer: irongall contributors
+pkgname=irongall-bin
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="One 16-color theme, one typeface, one font size — applied across Linux (prebuilt)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/theesfeld/irongall"
+license=('MIT')
+depends=('fontconfig' 'gcc-libs')
+provides=('irongall')
+conflicts=('irongall')
+source_x86_64=("irongall-$pkgver-x86_64-unknown-linux-gnu.tar.gz::https://github.com/theesfeld/irongall/releases/download/v$pkgver/irongall-$pkgver-x86_64-unknown-linux-gnu.tar.gz")
+source_aarch64=("irongall-$pkgver-aarch64-unknown-linux-gnu.tar.gz::https://github.com/theesfeld/irongall/releases/download/v$pkgver/irongall-$pkgver-aarch64-unknown-linux-gnu.tar.gz")
+sha256sums_x86_64=('SKIP')
+sha256sums_aarch64=('SKIP')
+
+package() {
+  cd "$srcdir"
+  # tarball layout: irongall, LICENSE, completions/
+  install -Dm755 irongall "$pkgdir/usr/bin/irongall" 2>/dev/null || \
+    install -Dm755 */irongall "$pkgdir/usr/bin/irongall"
+  if [ -f LICENSE ]; then
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  elif [ -f */LICENSE ]; then
+    install -Dm644 */LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  fi
+  if [ -f completions/irongall.bash ]; then
+    install -Dm644 completions/irongall.bash \
+      "$pkgdir/usr/share/bash-completion/completions/irongall"
+  fi
+  if [ -f completions/irongall.fish ]; then
+    install -Dm644 completions/irongall.fish \
+      "$pkgdir/usr/share/fish/vendor_completions.d/irongall.fish"
+  fi
+}

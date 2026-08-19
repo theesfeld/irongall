@@ -1,0 +1,15 @@
+pkgbase = irongall
+	pkgdesc = One 16-color theme, one typeface, one font size — applied across Linux
+	pkgver = 0.1.0
+	pkgrel = 1
+	url = https://github.com/theesfeld/irongall
+	arch = x86_64
+	arch = aarch64
+	license = MIT
+	makedepends = cargo
+	depends = fontconfig
+	depends = gcc-libs
+	source = irongall-0.1.0.tar.gz::https://github.com/theesfeld/irongall/archive/refs/tags/v0.1.0.tar.gz
+	sha256sums = SKIP
+
+pkgname = irongall
