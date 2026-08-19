@@ -1,5 +1,9 @@
 mod alacritty;
+mod bat;
+mod btop;
+mod cava;
 mod fontconfig;
+mod foot;
 mod ghostty;
 mod gsettings;
 mod gtk;
@@ -7,13 +11,17 @@ mod helix;
 mod hyprland;
 mod kdeglobals;
 mod kitty;
+mod lazygit;
+mod micro;
 mod neovim;
 mod qtct;
+mod starship;
 mod wezterm;
 mod xresources;
 mod xsettingsd;
+mod yazi;
+mod zathura;
 mod zed;
-mod foot;
 
 use crate::apply::{ApplyCtx, TargetStatus};
 use crate::error::Result;
@@ -38,6 +46,14 @@ pub fn apply_id(id: &str, ctx: &mut ApplyCtx<'_>) -> Result<TargetStatus> {
         "neovim" => neovim::apply(ctx),
         "zed" => zed::apply(ctx),
         "helix" => helix::apply(ctx),
+        "micro" => micro::apply(ctx),
+        "btop" => btop::apply(ctx),
+        "cava" => cava::apply(ctx),
+        "starship" => starship::apply(ctx),
+        "bat" => bat::apply(ctx),
+        "yazi" => yazi::apply(ctx),
+        "lazygit" => lazygit::apply(ctx),
+        "zathura" => zathura::apply(ctx),
         _ => Ok(TargetStatus::Skipped {
             reason: "no-writer".into(),
         }),

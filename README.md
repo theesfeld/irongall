@@ -179,9 +179,21 @@ lists which targets succeeded).
 
 ## TUI
 
-Keyboard-only. Left nav: Themes / Fonts / Size / Apps / Market / Status.
-`?` help, `q` quit, `A` apply all, `R` rollback. The TUI itself is colored
-from the **selected** (not yet applied) scheme.
+Keyboard-only. **Tab** / **Shift-Tab** cycle Themes → Fonts → Size → Apps →
+Market → Status. `?` help, `q` quit, `A` apply all, `R` rollback. The TUI
+itself is colored from the **selected** (not yet applied) scheme.
+
+## Marketplace
+
+No store, no accounts. `irongall market update` (or `u` in the Market pane)
+refreshes a local index:
+
+| Kind | Source |
+|---|---|
+| Color schemes | [Tinted Theming](https://github.com/tinted-theming/schemes) Base16 YAML (`spec-0.11/base16`), plus irongall's own `heartbox` / `gravas` |
+| Fonts | OFL / SIL / Apache / MIT families only, downloaded from each project's GitHub releases into `~/.local/share/fonts/irongall/` |
+
+Install a scheme or font from the Market pane (`i`) or `irongall theme install NAME` / `irongall font install FAMILY`. Commercial fonts stay out of the market — `irongall font import /path/to/ttf-dir` for fonts you already own.
 
 ## License
 

@@ -16,6 +16,12 @@ pub const BUNDLED_INDEX: &str = include_str!(concat!(
 pub const DEFAULT_INDEX_URL: &str =
     "https://raw.githubusercontent.com/theesfeld/irongall/main/market/index.json";
 
+/// Tinted Theming's Base16 scheme tree — the real color-scheme marketplace.
+pub const TINTED_SCHEMES_API: &str =
+    "https://api.github.com/repos/tinted-theming/schemes/contents/base16?ref=spec-0.11";
+pub const TINTED_SCHEME_RAW: &str =
+    "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16";
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Index {
     pub version: u32,
@@ -37,6 +43,9 @@ pub struct SchemeEntry {
     pub preview: Vec<String>,
     #[serde(default)]
     pub author: Option<String>,
+    /// `irongall` (vendored / this repo) or `tinted-theming` (upstream Base16).
+    #[serde(default)]
+    pub source: Option<String>,
 }
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -80,13 +89,57 @@ pub fn bundled_index() -> Result<Index> {
 }
 
 pub fn update(paths: &Paths, url: Option<&str>) -> Result<Index> {
-    let url = url.unwrap_or(DEFAULT_INDEX_URL);
-    let body = http_get(url)?;
-    let index: Index = serde_json::from_str(&body).map_err(|e| Error::parse("market index", e))?;
+    let mut index = if let Some(url) = url {
+        let body = http_get(url)?;
+        serde_json::from_str(&body).map_err(|e| Error::parse("market index", e))?
+    } else {
+        refresh_from_upstream()?
+    };
+    // Always keep bundled OFL fonts even if the remote index omitted them.
+    let bundled = bundled_index()?;
+    if index.fonts.is_empty() {
+        index.fonts = bundled.fonts;
+    }
     if let Some(parent) = paths.market_index().parent() {
         fs::create_dir_all(parent).map_err(|e| Error::io(e, parent))?;
     }
-    write_string(&paths.market_index(), &body)?;
+    let raw = serde_json::to_string_pretty(&index).map_err(|e| Error::parse("market index", e))?;
+    write_string(&paths.market_index(), &raw)?;
+    Ok(index)
+}
+
+/// Pull the live Base16 list from tinted-theming/schemes and prepend irongall's own.
+fn refresh_from_upstream() -> Result<Index> {
+    let mut index = bundled_index()?;
+    let body = http_get(TINTED_SCHEMES_API)?;
+    let files: serde_json::Value =
+        serde_json::from_str(&body).map_err(|e| Error::parse("tinted-theming listing", e))?;
+    let Some(arr) = files.as_array() else {
+        return Err(Error::Network(
+            "tinted-theming listing was not a JSON array".into(),
+        ));
+    };
+    let mut have: std::collections::BTreeSet<String> =
+        index.schemes.iter().map(|s| s.name.to_ascii_lowercase()).collect();
+    for f in arr {
+        let name = f.get("name").and_then(|n| n.as_str()).unwrap_or("");
+        if !name.ends_with(".yaml") {
+            continue;
+        }
+        let slug = name.trim_end_matches(".yaml");
+        if !have.insert(slug.to_ascii_lowercase()) {
+            continue;
+        }
+        index.schemes.push(SchemeEntry {
+            name: slug.to_string(),
+            url: format!("{TINTED_SCHEME_RAW}/{name}"),
+            license: "MIT".into(),
+            system: "base16".into(),
+            preview: Vec::new(),
+            author: None,
+            source: Some("tinted-theming".into()),
+        });
+    }
     Ok(index)
 }
 

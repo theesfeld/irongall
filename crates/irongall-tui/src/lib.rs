@@ -1,7 +1,7 @@
 //! Keyboard-only TUI for irongall.
 
+use std::collections::HashSet;
 use std::io::{self, stdout};
-use std::time::Duration;
 
 use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind, KeyModifiers};
 use crossterm::execute;
@@ -105,6 +105,7 @@ struct App {
     modal: Modal,
     status_msg: String,
     last_report: String,
+    installed_fonts: HashSet<String>,
     quit: bool,
 }
 
@@ -130,6 +131,7 @@ pub fn run() -> Result<()> {
         .position(|f| f.family == cfg.font.family)
         .unwrap_or(0);
 
+    let installed_fonts = fonts.iter().map(|f| f.family.clone()).collect();
     let mut app = App {
         size_draft: cfg.font.size,
         paths,
@@ -149,8 +151,9 @@ pub fn run() -> Result<()> {
         filter: String::new(),
         filtering: false,
         modal: Modal::None,
-        status_msg: "Enter set · a set+apply · A apply all · ? help · q quit".into(),
+        status_msg: "Tab section · Enter set · a set+apply · A apply all · ? help · q quit".into(),
         last_report: String::new(),
+        installed_fonts,
         quit: false,
     };
 
@@ -172,16 +175,26 @@ fn event_loop(
     terminal: &mut Terminal<CrosstermBackend<io::Stdout>>,
     app: &mut App,
 ) -> Result<()> {
+    terminal
+        .draw(|f| draw(f, app))
+        .map_err(|e| Error::user(format!("draw: {e}")))?;
     while !app.quit {
-        terminal
-            .draw(|f| draw(f, app))
-            .map_err(|e| Error::user(format!("draw: {e}")))?;
-        if event::poll(Duration::from_millis(200)).unwrap_or(false) {
-            if let Ok(Event::Key(key)) = event::read() {
-                if key.kind == KeyEventKind::Press {
-                    handle(app, key)?;
+        match event::read() {
+            Ok(Event::Key(key)) if key.kind == KeyEventKind::Press => {
+                handle(app, key)?;
+                if app.quit {
+                    break;
                 }
+                terminal
+                    .draw(|f| draw(f, app))
+                    .map_err(|e| Error::user(format!("draw: {e}")))?;
             }
+            Ok(Event::Resize(_, _)) => {
+                terminal
+                    .draw(|f| draw(f, app))
+                    .map_err(|e| Error::user(format!("draw: {e}")))?;
+            }
+            _ => {}
         }
     }
     Ok(())
@@ -279,10 +292,14 @@ fn handle(app: &mut App, key: KeyEvent) -> Result<()> {
     match key.code {
         KeyCode::Char('q') => app.quit = true,
         KeyCode::Char('?') => app.modal = Modal::Help,
-        KeyCode::Tab | KeyCode::Char('l') if key.modifiers.contains(KeyModifiers::CONTROL) => {
+        KeyCode::Tab => {
             app.pane = app.pane.next();
+            app.filter.clear();
         }
-        KeyCode::BackTab => app.pane = app.pane.prev(),
+        KeyCode::BackTab => {
+            app.pane = app.pane.prev();
+            app.filter.clear();
+        }
         KeyCode::Char('1') => app.pane = Pane::Themes,
         KeyCode::Char('2') => app.pane = Pane::Fonts,
         KeyCode::Char('3') => app.pane = Pane::Size,
@@ -540,6 +557,8 @@ fn market_install(app: &mut App) -> Result<()> {
                     Ok(p) => {
                         app.status_msg = format!("font {} → {}", f.family, p.display());
                         app.fonts = font::list_installed().unwrap_or_default();
+                        app.installed_fonts =
+                            app.fonts.iter().map(|fam| fam.family.clone()).collect();
                     }
                     Err(e) => app.status_msg = format!("install: {e}"),
                 }
@@ -821,8 +840,8 @@ fn draw_center(
         Pane::Size => " size ",
         Pane::Apps => " apps ",
         Pane::Market => match app.market_tab {
-            MarketTab::Schemes => " market · schemes ",
-            MarketTab::Fonts => " market · fonts ",
+            MarketTab::Schemes => " market · schemes (tinted-theming) ",
+            MarketTab::Fonts => " market · fonts (OFL / GitHub) ",
         },
         Pane::Status => " status ",
     };
@@ -922,7 +941,7 @@ fn draw_center(
                 let lines: Vec<String> = filtered_market_fonts(app)
                     .iter()
                     .map(|fam| {
-                        let inst = if font::family_installed(&fam.family) {
+                        let inst = if app.installed_fonts.contains(&fam.family) {
                             "installed"
                         } else {
                             "market"
@@ -934,8 +953,7 @@ fn draw_center(
             }
         },
         Pane::Status => {
-            let all = discovery::rows(&app.paths, &app.cfg, true).unwrap_or_default();
-            let c = discovery::counts(&all);
+            let c = discovery::counts(&app.apps);
             let mut text = format!(
                 "theme  {}\nfont   {}\nsize   {} pt\n\n{}\n\n{}",
                 app.cfg.theme.name,
@@ -1059,25 +1077,26 @@ fn draw_preview(
             let text = match app.market_tab {
                 MarketTab::Schemes => {
                     if let Some(s) = filtered_market_schemes(app).get(app.market_sel) {
+                        let src = s.source.as_deref().unwrap_or("tinted-theming");
                         format!(
-                            "{}\nlicense  {}\nsystem   {}\n{}\n\nEnter / i  install",
+                            "{}\nsource   {src}\nlicense  {}\nsystem   {}\n{}\n\nSchemes come from Tinted Theming\n(github.com/tinted-theming/schemes)\nplus irongall's own heartbox/gravas.\n\nu  refresh list    i / Enter  install",
                             s.name, s.license, s.system, s.url
                         )
                     } else {
-                        "no schemes".into()
+                        "no schemes — press u to fetch tinted-theming".into()
                     }
                 }
                 MarketTab::Fonts => {
                     if let Some(fam) = filtered_market_fonts(app).get(app.market_sel) {
                         format!(
-                            "{}\nlicense  {}\nsource   {}\n{}\n\nEnter / i  install (libre only)",
+                            "{}\nlicense  {}\nsource   {}\n{}\n\nFonts are OFL/SIL/Apache/MIT only.\nDownloaded from the project's GitHub\nreleases into ~/.local/share/fonts/irongall.\n\ni / Enter  install",
                             fam.family,
                             fam.license,
                             fam.source,
                             fam.notes.clone().unwrap_or_default()
                         )
                     } else {
-                        "no fonts".into()
+                        "no fonts in index".into()
                     }
                 }
             };
@@ -1174,22 +1193,23 @@ fn draw_help(f: &mut ratatui::Frame, bg: Color, fg: Color, acc: Color) {
     f.render_widget(Clear, area);
     let text = "\
 irongall\n\
-  1–6 / Tab     panes\n\
-  j/k ↑↓        move\n\
-  /             filter\n\
-  Enter         set current (no apply)\n\
-  a             set + apply\n\
-  A             apply all\n\
-  R             rollback last session\n\
-  q             quit\n\
+  Tab / Shift-Tab   next / prev section\n\
+  1–6               Themes Fonts Size Apps Market Status\n\
+  j/k ↑↓            move\n\
+  /                 filter\n\
+  Enter             set current (no apply)\n\
+  a                 set + apply\n\
+  A                 apply all\n\
+  R                 rollback last session\n\
+  q                 quit\n\
 \n\
 apps pane\n\
-  t/f/s         theme / font / size override\n\
-  c             reset    x skip    h hold\n\
-  a             apply this app    m missing    w no-writer\n\
+  t/f/s             theme / font / size override\n\
+  c reset   x skip   h hold   a apply this\n\
+  m missing   w no-writer\n\
 \n\
-size            ←/→ or [ ] in 0.5 pt (8–24)\n\
-market          s schemes  f fonts  i install  u update";
+size                ←/→ or [ ] in 0.5 pt (8–24)\n\
+market              s schemes  f fonts  i install  u update";
     f.render_widget(
         Paragraph::new(text).block(
             Block::default()

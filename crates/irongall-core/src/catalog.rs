@@ -352,7 +352,7 @@ const CATALOG: &[CatalogEntry] = &[
         &[],
         &["micro"],
         Reload::None,
-        false,
+        true,
     ),
     // --- cli ---
     e(
@@ -367,7 +367,7 @@ const CATALOG: &[CatalogEntry] = &[
         &[],
         &["btop"],
         Reload::None,
-        false,
+        true,
     ),
     e(
         "cava",
@@ -381,7 +381,7 @@ const CATALOG: &[CatalogEntry] = &[
         &[],
         &["cava"],
         Reload::None,
-        false,
+        true,
     ),
     e(
         "starship",
@@ -395,7 +395,7 @@ const CATALOG: &[CatalogEntry] = &[
         &[],
         &["starship"],
         Reload::None,
-        false,
+        true,
     ),
     e(
         "bat",
@@ -409,7 +409,7 @@ const CATALOG: &[CatalogEntry] = &[
         &[],
         &["bat"],
         Reload::None,
-        false,
+        true,
     ),
     e(
         "yazi",
@@ -423,7 +423,7 @@ const CATALOG: &[CatalogEntry] = &[
         &[],
         &["yazi"],
         Reload::None,
-        false,
+        true,
     ),
     e(
         "lazygit",
@@ -437,7 +437,7 @@ const CATALOG: &[CatalogEntry] = &[
         &[],
         &["lazygit"],
         Reload::None,
-        false,
+        true,
     ),
     e(
         "zathura",
@@ -451,7 +451,7 @@ const CATALOG: &[CatalogEntry] = &[
         &["org.pwmt.zathura.desktop"],
         &["zathura"],
         Reload::None,
-        false,
+        true,
     ),
     // --- browsers ---
     e(

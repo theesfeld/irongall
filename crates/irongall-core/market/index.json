@@ -6,77 +6,2748 @@
       "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/heartbox.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#0A1528", "#E03818", "#1E8AE8"]
+      "preview": [
+        "#0A1528",
+        "#E03818",
+        "#1E8AE8"
+      ],
+      "source": "irongall"
     },
     {
       "name": "gravas",
       "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/gravas.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#1C1916", "#C45C3E", "#6A8F4E"]
+      "preview": [
+        "#1C1916",
+        "#C45C3E",
+        "#6A8F4E"
+      ],
+      "source": "irongall"
     },
     {
-      "name": "default-dark",
-      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/default-dark.yaml",
+      "name": "0x96f",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/0x96f.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#181818", "#ab4642", "#7cafc2"]
+      "preview": [],
+      "source": "tinted-theming"
     },
     {
-      "name": "default-light",
-      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/default-light.yaml",
+      "name": "3024",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/3024.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#f8f8f8", "#ab4642", "#7cafc2"]
+      "preview": [],
+      "source": "tinted-theming"
     },
     {
-      "name": "tokyo-night",
-      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/tokyo-night.yaml",
+      "name": "apathy",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/apathy.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#1a1b26", "#f7768e", "#7aa2f7"]
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "apprentice",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/apprentice.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "arroz-con-dulce-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/arroz-con-dulce-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "arroz-con-dulce",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/arroz-con-dulce.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "ascendancy",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ascendancy.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "ashes",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ashes.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-cave-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-cave-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-cave",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-cave.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-dune-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-dune-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-dune",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-dune.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-estuary-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-estuary-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-estuary",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-estuary.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-forest-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-forest-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-forest",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-forest.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-heath-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-heath-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-heath",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-heath.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-lakeside-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-lakeside-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-lakeside",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-lakeside.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-plateau-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-plateau-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-plateau",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-plateau.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-savanna-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-savanna-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-savanna",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-savanna.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-seaside-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-seaside-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-seaside",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-seaside.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-sulphurpool-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-sulphurpool-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atelier-sulphurpool",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atelier-sulphurpool.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "atlas",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/atlas.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "ayu-dark",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/ayu-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "ayu-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ayu-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "ayu-mirage",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ayu-mirage.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "aztec",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/aztec.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "bespin",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/bespin.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-bathory",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-bathory.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-burzum",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-burzum.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-dark-funeral",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-dark-funeral.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-gorgoroth",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-gorgoroth.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-immortal",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-immortal.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-khold",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-khold.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-marduk",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-marduk.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-mayhem",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-mayhem.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-nile",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-nile.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal-venom",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal-venom.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "black-metal",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/black-metal.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "blueforest",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/blueforest.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "blueish",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/blueish.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "boo-shnickle-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/boo-shnickle-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "boo-shnickle-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/boo-shnickle-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "bosque",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/bosque.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "brasa",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/brasa.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "brewer",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/brewer.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "bright",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/bright.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "brogrammer",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/brogrammer.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "brushtrees-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/brushtrees-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "brushtrees",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/brushtrees.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "cacao",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/cacao.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "caroline",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/caroline.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "catppuccin-frappe",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/catppuccin-frappe.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "catppuccin-latte",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/catppuccin-latte.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "catppuccin-macchiato",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/catppuccin-macchiato.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
     },
     {
       "name": "catppuccin-mocha",
       "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/catppuccin-mocha.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#1e1e2e", "#f38ba8", "#89b4fa"]
+      "preview": [
+        "#1e1e2e",
+        "#f38ba8",
+        "#89b4fa"
+      ],
+      "source": "irongall"
+    },
+    {
+      "name": "cerulean-signal-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/cerulean-signal-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "cerulean-signal-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/cerulean-signal-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "chalk",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/chalk.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "charcoal-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/charcoal-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "charcoal-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/charcoal-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "chicago-day",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/chicago-day.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "chicago-night",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/chicago-night.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "chinoiserie-midnight",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/chinoiserie-midnight.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "chinoiserie-morandi",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/chinoiserie-morandi.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "chinoiserie-night",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/chinoiserie-night.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "chinoiserie",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/chinoiserie.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "circus",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/circus.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "classic-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/classic-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "classic-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/classic-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "codeschool",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/codeschool.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "colors",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/colors.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "cupcake",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/cupcake.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "cupertino",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/cupertino.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "da-one-black",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/da-one-black.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "da-one-gray",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/da-one-gray.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "da-one-ocean",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/da-one-ocean.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "da-one-paper",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/da-one-paper.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "da-one-sea",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/da-one-sea.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "da-one-white",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/da-one-white.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "danqing-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/danqing-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "danqing",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/danqing.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "darcula",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/darcula.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "darkmoss",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/darkmoss.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "darktooth",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/darktooth.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "darkviolet",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/darkviolet.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "decaf",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/decaf.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "deep-oceanic-next",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/deep-oceanic-next.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "default-dark",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/default-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [
+        "#181818",
+        "#ab4642",
+        "#7cafc2"
+      ],
+      "source": "irongall"
+    },
+    {
+      "name": "default-light",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/default-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [
+        "#f8f8f8",
+        "#ab4642",
+        "#7cafc2"
+      ],
+      "source": "irongall"
+    },
+    {
+      "name": "digital-rain",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/digital-rain.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "dirtysea",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/dirtysea.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
     },
     {
       "name": "dracula",
       "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/dracula.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#282a36", "#ff5555", "#bd93f9"]
+      "preview": [
+        "#282a36",
+        "#ff5555",
+        "#bd93f9"
+      ],
+      "source": "irongall"
     },
     {
-      "name": "nord",
-      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/nord.yaml",
+      "name": "edge-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/edge-dark.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#2e3440", "#bf616a", "#81a1c1"]
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "edge-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/edge-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "eighties",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/eighties.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "eldritch",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/eldritch.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "embers-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/embers-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "embers",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/embers.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "emil",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/emil.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "equilibrium-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/equilibrium-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "equilibrium-gray-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/equilibrium-gray-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "equilibrium-gray-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/equilibrium-gray-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "equilibrium-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/equilibrium-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "eris",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/eris.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "espresso",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/espresso.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "eva-dim",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/eva-dim.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "eva",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/eva.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "evenok-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/evenok-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "everforest-dark-hard",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/everforest-dark-hard.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "everforest-dark-medium",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/everforest-dark-medium.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "everforest-dark-soft",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/everforest-dark-soft.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "everforest-light-hard",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/everforest-light-hard.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "everforest-light-medium",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/everforest-light-medium.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "everforest-light-soft",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/everforest-light-soft.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "everforest",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/everforest.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "flat",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/flat.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "flexoki-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/flexoki-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "flexoki-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/flexoki-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "framer",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/framer.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "fruit-soda",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/fruit-soda.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gigavolt",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gigavolt.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "github-dark-colorblind",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/github-dark-colorblind.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "github-dark-dimmed",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/github-dark-dimmed.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "github-dark-high-contrast",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/github-dark-high-contrast.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "github-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/github-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "github-light-colorblind",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/github-light-colorblind.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "github-light-high-contrast",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/github-light-high-contrast.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "github",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/github.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "google-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/google-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "google-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/google-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gotham",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gotham.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "grayscale-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/grayscale-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "grayscale-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/grayscale-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "greenscreen",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/greenscreen.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruber",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruber.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
     },
     {
       "name": "gruvbox-dark-hard",
       "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/gruvbox-dark-hard.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#1d2021", "#fb4934", "#83a598"]
+      "preview": [
+        "#1d2021",
+        "#fb4934",
+        "#83a598"
+      ],
+      "source": "irongall"
     },
     {
-      "name": "one-dark",
-      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/one-dark.yaml",
+      "name": "gruvbox-dark-medium-forest",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-dark-medium-forest.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#282c34", "#e06c75", "#61afef"]
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-dark-medium",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-dark-medium.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-dark-pale",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-dark-pale.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-dark-soft",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-dark-soft.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-light-hard",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-light-hard.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-light-medium",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-light-medium.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-light-soft",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-light-soft.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-material-dark-hard",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-material-dark-hard.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-material-dark-medium",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-material-dark-medium.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-material-dark-soft",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-material-dark-soft.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-material-light-hard",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-material-light-hard.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-material-light-medium",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-material-light-medium.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "gruvbox-material-light-soft",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/gruvbox-material-light-soft.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "hardcore",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/hardcore.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "hardhacker",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/hardhacker.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "harmonic16-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/harmonic16-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "harmonic16-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/harmonic16-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "heetch-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/heetch-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "heetch",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/heetch.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "helios",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/helios.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "hopscotch",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/hopscotch.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "horizon-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/horizon-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "horizon-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/horizon-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "horizon-terminal-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/horizon-terminal-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "horizon-terminal-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/horizon-terminal-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "humanoid-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/humanoid-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "humanoid-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/humanoid-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "ia-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ia-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "ia-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ia-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "icy",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/icy.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "irblack",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/irblack.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "isotope",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/isotope.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "jabuti",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/jabuti.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "jellybeans",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/jellybeans.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "kanagawa-dragon",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/kanagawa-dragon.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "kanagawa",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/kanagawa.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "katy",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/katy.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "kimber",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/kimber.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "kissa-latte",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/kissa-latte.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "kissa-macchiato",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/kissa-macchiato.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "lichen-chartreuse-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/lichen-chartreuse-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "lichen-chartreuse-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/lichen-chartreuse-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "lime",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/lime.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "linux-vt",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/linux-vt.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "macintosh",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/macintosh.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "marrakesh",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/marrakesh.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "materia",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/materia.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "material-darker",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/material-darker.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "material-lighter",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/material-lighter.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "material-palenight",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/material-palenight.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "material-vivid",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/material-vivid.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "material",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/material.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "measured-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/measured-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "measured-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/measured-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "mellow-purple",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/mellow-purple.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "mexico-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/mexico-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "mezcal",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/mezcal.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "mocha",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/mocha.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "monokai",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/monokai.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "moonlight",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/moonlight.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "mountain",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/mountain.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "nebula",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/nebula.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "neovim-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/neovim-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "neovim-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/neovim-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "noche",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/noche.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "nord-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/nord-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "nord",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/nord.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [
+        "#2e3440",
+        "#bf616a",
+        "#81a1c1"
+      ],
+      "source": "irongall"
+    },
+    {
+      "name": "nova",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/nova.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "ocean",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ocean.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "oceanicnext",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/oceanicnext.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "ocote",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/ocote.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "one-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/one-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "onedark-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/onedark-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "onedark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/onedark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "outrun-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/outrun-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "oxocarbon-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/oxocarbon-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "oxocarbon-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/oxocarbon-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "pandora",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/pandora.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "papel",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/papel.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "papercolor-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/papercolor-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "papercolor-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/papercolor-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "paraiso",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/paraiso.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "pasque",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/pasque.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "pastelon-de-amarillos-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/pastelon-de-amarillos-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "pastelon-de-amarillos",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/pastelon-de-amarillos.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "penumbra-dark-contrast-plus-plus",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/penumbra-dark-contrast-plus-plus.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "penumbra-dark-contrast-plus",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/penumbra-dark-contrast-plus.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "penumbra-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/penumbra-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "penumbra-light-contrast-plus-plus",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/penumbra-light-contrast-plus-plus.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "penumbra-light-contrast-plus",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/penumbra-light-contrast-plus.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "penumbra-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/penumbra-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "phd",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/phd.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "pico",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/pico.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "pinky",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/pinky.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "pop",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/pop.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "porple",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/porple.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "precious-dark-eleven",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/precious-dark-eleven.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "precious-dark-fifteen",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/precious-dark-fifteen.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "precious-light-warm",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/precious-light-warm.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "precious-light-white",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/precious-light-white.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "primer-dark-dimmed",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/primer-dark-dimmed.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "primer-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/primer-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "primer-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/primer-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "purpledream",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/purpledream.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "qualia",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/qualia.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "railscasts",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/railscasts.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "rebecca",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/rebecca.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "rose-pine-dawn",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/rose-pine-dawn.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "rose-pine-moon",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/rose-pine-moon.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "rose-pine",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/rose-pine.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "saga",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/saga.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "sagelight",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/sagelight.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "sakura",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/sakura.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "sandcastle",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/sandcastle.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "selenized-black",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/selenized-black.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "selenized-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/selenized-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "selenized-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/selenized-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "selenized-white",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/selenized-white.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "seti",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/seti.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "shades-of-purple",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/shades-of-purple.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "shadesmear-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/shadesmear-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "shadesmear-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/shadesmear-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "shapeshifter",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/shapeshifter.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "silk-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/silk-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "silk-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/silk-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "snazzy",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/snazzy.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "soft-server",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/soft-server.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "solarflare-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/solarflare-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "solarflare",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/solarflare.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
     },
     {
       "name": "solarized-dark",
-      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/solarized-dark.yaml",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/solarized-dark.yaml",
       "license": "MIT",
       "system": "base16",
-      "preview": ["#002b36", "#dc322f", "#268bd2"]
+      "preview": [
+        "#002b36",
+        "#dc322f",
+        "#268bd2"
+      ],
+      "source": "irongall"
+    },
+    {
+      "name": "solarized-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/solarized-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "spaceduck",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/spaceduck.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "spacemacs",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/spacemacs.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "sparky",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/sparky.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "standardized-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/standardized-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "standardized-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/standardized-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "stella",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/stella.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "still-alive",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/still-alive.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "summercamp",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/summercamp.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "summerfruit-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/summerfruit-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "summerfruit-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/summerfruit-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "swamp-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/swamp-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "swamp-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/swamp-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "synth-midnight-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/synth-midnight-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "synth-midnight-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/synth-midnight-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tango",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tango.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tarot",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tarot.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tender",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tender.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "terracotta-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/terracotta-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "terracotta",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/terracotta.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tinta",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tinta.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-city-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-city-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-city-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-city-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-city-terminal-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-city-terminal-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-city-terminal-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-city-terminal-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-night-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-night-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-night-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-night-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-night-moon",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-night-moon.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-night-storm",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-night-storm.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-night-terminal-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-night-terminal-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-night-terminal-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-night-terminal-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyo-night-terminal-storm",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyo-night-terminal-storm.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyodark-terminal",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyodark-terminal.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tokyodark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tokyodark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tomorrow-night-eighties",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tomorrow-night-eighties.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tomorrow-night",
+      "url": "https://raw.githubusercontent.com/theesfeld/irongall/main/schemes/tomorrow-night.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "irongall"
+    },
+    {
+      "name": "tomorrow",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tomorrow.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "tube",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/tube.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "twilight",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/twilight.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "unikitty-dark",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/unikitty-dark.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "unikitty-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/unikitty-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "unikitty-reversible",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/unikitty-reversible.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "uwunicorn",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/uwunicorn.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "valua",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/valua.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "vesper",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/vesper.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "vice",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/vice.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "vulcan",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/vulcan.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-10-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-10-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-10",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-10.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-95-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-95-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-95",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-95.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-highcontrast-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-highcontrast-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-highcontrast",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-highcontrast.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-nt-light",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-nt-light.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "windows-nt",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/windows-nt.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "woodland",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/woodland.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "xcode-dusk",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/xcode-dusk.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "yesterday-bright",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/yesterday-bright.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "yesterday-night",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/yesterday-night.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "yesterday",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/yesterday.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "zenbones",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/zenbones.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
+    },
+    {
+      "name": "zenburn",
+      "url": "https://raw.githubusercontent.com/tinted-theming/schemes/spec-0.11/base16/zenburn.yaml",
+      "license": "MIT",
+      "system": "base16",
+      "preview": [],
+      "source": "tinted-theming"
     }
   ],
   "fonts": [
